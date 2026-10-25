@@ -1,0 +1,32 @@
+:root {
+  --navy: #0b2635;
+  --navy-deep: #081e2b;
+  --ocean: #103d50;
+  --teal: #087f83;
+  --turquoise: #22b8b5;
+  --teal-dark: #06656b;
+  --sky: #69c8f0;
+  --gold: #f0b86d;
+  --lavender: #a89be8;
+  --sand: #f5ebdd;
+  --coral: #ff8066;
+  --success: #168574;
+  --ink: #163343;
+  --muted: #617583;
+  --subtle: #6b7f8d;
+  --line: #e0e8eb;
+  --surface: #fff;
+  --canvas: #f8fafc;
+  --teal-soft: #eaf5f4;
+  --font-body: 'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif;
+  --font-heading: 'Manrope', 'Be Vietnam Pro', Arial, sans-serif;
+  --font-display: 'Playfair Display', 'Noto Serif', 'Times New Roman', serif;
+  --radius-sm: 8px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --shadow-sm: 0 4px 18px #102d3a06;
+  --shadow: 0 16px 50px #102d3a0b;
+  --shadow-lg: 0 24px 70px #102d3a17;
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --header-height: 96px;
+}

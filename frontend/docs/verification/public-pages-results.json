@@ -1,0 +1,32 @@
+{
+  "checkedAt": "2026-10-24T17:18:52.888Z",
+  "passed": [
+    "flight detail and fare selection",
+    "recovery form success",
+    "reset form and unchanged token/password contract",
+    "404 responsive",
+    "empty airport fallback",
+    "airport error/retry",
+    "all local images/fonts/scripts loaded",
+    "map animation and navy theme"
+  ],
+  "exceptions": [],
+  "assetErrors": [],
+  "requests": [
+    {
+      "endpoint": "/auth/forgot-password",
+      "method": "POST",
+      "fields": [
+        "email"
+      ]
+    },
+    {
+      "endpoint": "/auth/reset-password",
+      "method": "POST",
+      "fields": [
+        "token",
+        "password"
+      ]
+    }
+  ]
+}

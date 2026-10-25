@@ -1,0 +1,25 @@
+import { Router } from 'express';
+import { z } from 'zod';
+import { prisma } from '../config/db';
+import { authenticate } from '../middlewares/auth.middleware';
+import { preferenceSchema, id, password } from '../validators';
+import { publicUser } from '../repositories/user.repository';
+import { authService } from '../services/auth.service';
+import { AppError } from '../utils/app-error';
+const router = Router();
+router.use(authenticate);
+router.patch('/profile', async (req, res) => { const data = z.object({ fullName: z.string().trim().min(2).max(100), phone: z.string().max(30).nullable().optional() }).parse(req.body); res.json({ success: true, data: await prisma.user.update({ where: { id: req.auth!.id }, data, select: publicUser }) }); });
+router.post('/password', async (req, res) => { const data = z.object({ currentPassword: z.string().min(1).max(200), password }).parse(req.body); await authService.changePassword(req.auth!.id, data.currentPassword, data.password); res.json({ success: true }); });
+router.get('/preferences', async (req, res) => { res.json({ success: true, data: await prisma.flightPreference.findUnique({ where: { userId: req.auth!.id } }) }); });
+router.put('/preferences', async (req, res) => { const data = preferenceSchema.parse(req.body); res.json({ success: true, data: await prisma.flightPreference.upsert({ where: { userId: req.auth!.id }, create: { userId: req.auth!.id, ...data }, update: data }) }); });
+router.get('/favorites', async (req, res) => { res.json({ success: true, data: await prisma.favoriteRoute.findMany({ where: { userId: req.auth!.id }, include: { origin: true, destination: true } }) }); });
+router.post('/favorites', async (req, res) => { const data = z.object({ originId: id, destinationId: id }).refine(v => v.originId !== v.destinationId).parse(req.body); const key = { userId: req.auth!.id, ...data }; res.json({ success: true, data: await prisma.favoriteRoute.upsert({ where: { userId_originId_destinationId: key }, create: key, update: {} }) }); });
+router.delete('/favorites/:id', async (req, res) => { await prisma.favoriteRoute.deleteMany({ where: { id: id.parse(req.params.id), userId: req.auth!.id } }); res.json({ success: true }); });
+router.get('/search-history', async (req, res) => { res.json({ success: true, data: await prisma.searchHistory.findMany({ where: { userId: req.auth!.id }, orderBy: { createdAt: 'desc' }, take: 20 }) }); });
+router.post('/reviews', async (req, res) => {
+  const data = z.object({ airlineId: id, rating: z.number().int().min(1).max(5), comment: z.string().trim().min(3).max(2000) }).parse(req.body);
+  const eligible = await prisma.booking.count({ where: { userId: req.auth!.id, status: 'CONFIRMED', segments: { some: { fare: { flight: { airlineId: data.airlineId, arrivalTime: { lt: new Date() } } } } } } });
+  if (!eligible) throw new AppError('Chỉ hành khách đã hoàn tất chuyến bay mới có thể đánh giá', 403);
+  res.json({ success: true, data: await prisma.review.upsert({ where: { userId_airlineId: { userId: req.auth!.id, airlineId: data.airlineId } }, create: { userId: req.auth!.id, ...data }, update: { ...data, isVisible: true } }) });
+});
+export default router;

@@ -1,0 +1,237 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  fullName String @map("full_name") @db.VarChar(100)
+  email String @unique @db.VarChar(255)
+  passwordHash String @map("password_hash")
+  role String @default("USER") @db.VarChar(20)
+  isActive Boolean @default(true) @map("is_active")
+  tokenVersion Int @default(0) @map("token_version")
+  phone String? @db.VarChar(30)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+  sessions RefreshToken[]
+  resets PasswordResetToken[]
+  bookings Booking[]
+  favorites FavoriteRoute[]
+  reviews Review[]
+  preference FlightPreference?
+  searches SearchHistory[]
+  @@map("users")
+}
+
+model RefreshToken {
+  id String @id @default(uuid()) @db.Uuid
+  userId Int @map("user_id")
+  tokenHash String @unique @map("token_hash") @db.Char(64)
+  expiresAt DateTime @map("expires_at") @db.Timestamptz()
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("refresh_tokens")
+}
+
+model PasswordResetToken {
+  id String @id @default(uuid()) @db.Uuid
+  userId Int @map("user_id")
+  tokenHash String @unique @map("token_hash") @db.Char(64)
+  expiresAt DateTime @map("expires_at") @db.Timestamptz()
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([expiresAt])
+  @@map("password_reset_tokens")
+}
+
+model Airline {
+  id Int @id @default(autoincrement())
+  code String @unique @db.VarChar(3)
+  name String @db.VarChar(100)
+  color String @default("#086c72") @db.VarChar(7)
+  isActive Boolean @default(true) @map("is_active")
+  flights Flight[]
+  reviews Review[]
+  @@map("airlines")
+}
+
+model Airport {
+  id Int @id @default(autoincrement())
+  code String @unique @db.Char(3)
+  name String @db.VarChar(150)
+  city String @db.VarChar(100)
+  country String @default("Việt Nam") @db.VarChar(100)
+  timezone String @default("Asia/Ho_Chi_Minh") @db.VarChar(60)
+  latitude Decimal @db.Decimal(10,7)
+  longitude Decimal @db.Decimal(10,7)
+  departures Flight[] @relation("Departure")
+  arrivals Flight[] @relation("Arrival")
+  favoriteOrigins FavoriteRoute[] @relation("FavoriteOrigin")
+  favoriteDestinations FavoriteRoute[] @relation("FavoriteDestination")
+  @@map("airports")
+}
+
+model Flight {
+  id Int @id @default(autoincrement())
+  airlineId Int @map("airline_id")
+  originId Int @map("origin_id")
+  destinationId Int @map("destination_id")
+  flightNumber String @map("flight_number") @db.VarChar(10)
+  aircraft String @default("Airbus A321") @db.VarChar(60)
+  departureTime DateTime @map("departure_time") @db.Timestamptz()
+  arrivalTime DateTime @map("arrival_time") @db.Timestamptz()
+  status String @default("SCHEDULED") @db.VarChar(20)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+  airline Airline @relation(fields: [airlineId], references: [id])
+  origin Airport @relation("Departure", fields: [originId], references: [id])
+  destination Airport @relation("Arrival", fields: [destinationId], references: [id])
+  fares FlightFare[]
+  @@unique([flightNumber, departureTime])
+  @@index([originId, destinationId, departureTime])
+  @@map("flights")
+}
+
+model FlightFare {
+  id Int @id @default(autoincrement())
+  flightId Int @map("flight_id")
+  cabinClass String @map("cabin_class") @db.VarChar(20)
+  basePrice Int @map("base_price")
+  tax Int @default(0)
+  baggageKg Int @default(0) @map("baggage_kg")
+  cabinBaggageKg Int @default(7) @map("cabin_baggage_kg")
+  refundable Boolean @default(false)
+  totalSeats Int @map("total_seats")
+  availableSeats Int @map("available_seats")
+  flight Flight @relation(fields: [flightId], references: [id], onDelete: Cascade)
+  segments BookingSegment[]
+  @@unique([flightId, cabinClass])
+  @@map("flight_fares")
+}
+
+model Booking {
+  id String @id @default(uuid()) @db.Uuid
+  reference String @unique @db.VarChar(12)
+  userId Int @map("user_id")
+  idempotencyKey String @map("idempotency_key") @db.VarChar(100)
+  requestHash String @map("request_hash") @db.Char(64)
+  status String @default("PENDING") @db.VarChar(20)
+  contactEmail String @map("contact_email") @db.VarChar(255)
+  contactPhone String @map("contact_phone") @db.VarChar(30)
+  totalAmount Int @map("total_amount")
+  currency String @default("VND") @db.Char(3)
+  expiresAt DateTime @map("expires_at") @db.Timestamptz()
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  user User @relation(fields: [userId], references: [id])
+  segments BookingSegment[]
+  passengers Passenger[]
+  payment Payment?
+  @@unique([userId, idempotencyKey])
+  @@index([status, expiresAt])
+  @@index([userId, createdAt])
+  @@map("bookings")
+}
+
+model BookingSegment {
+  id Int @id @default(autoincrement())
+  bookingId String @map("booking_id") @db.Uuid
+  fareId Int @map("fare_id")
+  sequence Int
+  unitPrice Int @map("unit_price")
+  cabinClass String @map("cabin_class") @db.VarChar(20)
+  baggageKg Int @map("baggage_kg")
+  cabinBaggageKg Int @map("cabin_baggage_kg")
+  refundable Boolean
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  fare FlightFare @relation(fields: [fareId], references: [id])
+  tickets Ticket[]
+  @@unique([bookingId, sequence])
+  @@map("booking_segments")
+}
+
+model Passenger {
+  id Int @id @default(autoincrement())
+  bookingId String @map("booking_id") @db.Uuid
+  fullName String @map("full_name") @db.VarChar(100)
+  dateOfBirth DateTime @map("date_of_birth") @db.Date
+  documentNumber String @map("document_number") @db.VarChar(30)
+  nationality String @default("VN") @db.Char(2)
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  tickets Ticket[]
+  @@map("passengers")
+}
+
+model Ticket {
+  id String @id @default(uuid()) @db.Uuid
+  number String @unique @db.VarChar(24)
+  passengerId Int @map("passenger_id")
+  segmentId Int @map("segment_id")
+  status String @default("ISSUED") @db.VarChar(20)
+  issuedAt DateTime @default(now()) @map("issued_at") @db.Timestamptz()
+  passenger Passenger @relation(fields: [passengerId], references: [id], onDelete: Cascade)
+  segment BookingSegment @relation(fields: [segmentId], references: [id], onDelete: Cascade)
+  @@unique([passengerId, segmentId])
+  @@map("tickets")
+}
+
+model Payment {
+  id String @id @default(uuid()) @db.Uuid
+  bookingId String @unique @map("booking_id") @db.Uuid
+  provider String @default("MOCK") @db.VarChar(20)
+  transactionId String @unique @map("transaction_id")
+  amount Int
+  status String @default("PAID") @db.VarChar(20)
+  paidAt DateTime @default(now()) @map("paid_at") @db.Timestamptz()
+  booking Booking @relation(fields: [bookingId], references: [id])
+  @@map("payments")
+}
+
+model FavoriteRoute {
+  id Int @id @default(autoincrement())
+  userId Int @map("user_id")
+  originId Int @map("origin_id")
+  destinationId Int @map("destination_id")
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  origin Airport @relation("FavoriteOrigin", fields: [originId], references: [id])
+  destination Airport @relation("FavoriteDestination", fields: [destinationId], references: [id])
+  @@unique([userId, originId, destinationId])
+  @@map("favorite_routes")
+}
+
+model FlightPreference {
+  userId Int @id @map("user_id")
+  cabinClass String @default("ECONOMY") @map("cabin_class") @db.VarChar(20)
+  maxBudget Int @default(3000000) @map("max_budget")
+  preferredAirlines String[] @default([]) @map("preferred_airlines")
+  prioritize String @default("BALANCED") @db.VarChar(20)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("flight_preferences")
+}
+
+model Review {
+  id Int @id @default(autoincrement())
+  userId Int @map("user_id")
+  airlineId Int @map("airline_id")
+  rating Int @db.SmallInt
+  comment String @db.VarChar(2000)
+  isVisible Boolean @default(true) @map("is_visible")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  airline Airline @relation(fields: [airlineId], references: [id])
+  @@unique([userId, airlineId])
+  @@map("reviews")
+}
+
+model SearchHistory {
+  id Int @id @default(autoincrement())
+  userId Int @map("user_id")
+  query Json
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId, createdAt])
+  @@map("search_history")
+}

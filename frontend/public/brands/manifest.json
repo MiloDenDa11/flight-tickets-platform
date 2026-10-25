@@ -1,0 +1,146 @@
+{
+  "VN": {
+    "code": "VN",
+    "file": "/brands/vn.svg",
+    "source": "https://www.vietnamairlines.com/content/dam/vna/logos/vna-logo.svg",
+    "homepage": "https://www.vietnamairlines.com/",
+    "kind": "official-logo"
+  },
+  "VJ": {
+    "code": "VJ",
+    "file": "/brands/vj.ico",
+    "source": "https://www.vietjetair.com/favicon.ico",
+    "homepage": "https://www.vietjetair.com/",
+    "kind": "official-site-icon"
+  },
+  "QH": {
+    "code": "QH",
+    "file": "/brands/qh.png",
+    "source": "https://www.bambooairways.com/o/wpbav-home-theme/css/assets/logo.png",
+    "homepage": "https://www.bambooairways.com/",
+    "kind": "official-logo"
+  },
+  "BL": {
+    "code": "BL",
+    "file": "/brands/bl.png",
+    "source": "https://www.pacificairlines.com/wp-content/uploads/2024/10/Logo1-1.png",
+    "homepage": "https://www.pacificairlines.com/",
+    "kind": "official-logo"
+  },
+  "VU": {
+    "code": "VU",
+    "homepage": "https://www.vietravelairlines.com/",
+    "kind": "text-only"
+  },
+  "SQ": {
+    "code": "SQ",
+    "file": "/brands/sq.ico",
+    "source": "https://www.singaporeair.com/favicon.ico",
+    "homepage": "https://www.singaporeair.com/",
+    "kind": "official-site-icon"
+  },
+  "EK": {
+    "code": "EK",
+    "file": "/brands/ek.ico",
+    "source": "https://www.emirates.com/favicon.ico",
+    "homepage": "https://www.emirates.com/",
+    "kind": "official-site-icon"
+  },
+  "QR": {
+    "code": "QR",
+    "file": "/brands/qr.png",
+    "source": "https://www.qatarairways.com/content/dam/qatar/images/qr-official-logo.png",
+    "homepage": "https://www.qatarairways.com/",
+    "kind": "official-logo"
+  },
+  "CX": {
+    "code": "CX",
+    "file": "/brands/cx.svg",
+    "source": "https://www.cathaypacific.com/content/dam/header-footer-lrp/cathay80-en.originalimage.svg",
+    "homepage": "https://www.cathaypacific.com/",
+    "kind": "official-logo"
+  },
+  "TG": {
+    "code": "TG",
+    "file": "/brands/tg.ico",
+    "source": "https://www.thaiairways.com/favicon.ico",
+    "homepage": "https://www.thaiairways.com/",
+    "kind": "official-site-icon"
+  },
+  "KE": {
+    "code": "KE",
+    "file": "/brands/ke.ico",
+    "source": "https://www.koreanair.com/favicon.ico?3",
+    "homepage": "https://www.koreanair.com/",
+    "kind": "official-site-icon"
+  },
+  "JL": {
+    "code": "JL",
+    "homepage": "https://www.jal.com/",
+    "kind": "text-only"
+  },
+  "NH": {
+    "code": "NH",
+    "file": "/brands/nh.svg",
+    "source": "https://www.ana.co.jp/common-layout2/images/www2/logo_ana_tagline.svg",
+    "homepage": "https://www.ana.co.jp/",
+    "kind": "official-logo"
+  },
+  "BR": {
+    "code": "BR",
+    "file": "/brands/br.png",
+    "source": "https://www.evaair.com/system/assets/images/logo-evaair-header.png",
+    "homepage": "https://www.evaair.com/",
+    "kind": "official-logo"
+  },
+  "CI": {
+    "code": "CI",
+    "file": "/brands/ci.webp",
+    "source": "https://prd-api.china-airlines.com/sea/vi/Images/logo-light-en_tcm537-72169.webp",
+    "homepage": "https://www.china-airlines.com/",
+    "kind": "official-logo"
+  },
+  "LH": {
+    "code": "LH",
+    "file": "/brands/lh.ico",
+    "source": "https://www.lufthansa.com/favicon.ico",
+    "homepage": "https://www.lufthansa.com/",
+    "kind": "official-site-icon"
+  },
+  "AF": {
+    "code": "AF",
+    "file": "/brands/af.svg",
+    "source": "https://www.airfrance.com/assets/components/46.1.0/af/logo/brand-logo.svg",
+    "homepage": "https://www.airfrance.com/",
+    "kind": "official-logo"
+  },
+  "BA": {
+    "code": "BA",
+    "file": "/brands/ba.png",
+    "source": "https://www.britishairways.com/",
+    "homepage": "https://www.britishairways.com/",
+    "kind": "official-logo",
+    "note": "Logo embedded in the official homepage; original image preserved locally."
+  },
+  "TK": {
+    "code": "TK",
+    "file": "/brands/tk.ico",
+    "source": "https://www.turkishairlines.com/favicon.ico",
+    "homepage": "https://www.turkishairlines.com/",
+    "kind": "official-site-icon"
+  },
+  "QF": {
+    "code": "QF",
+    "file": "/brands/qf.ico",
+    "source": "https://www.qantas.com/favicon.ico",
+    "homepage": "https://www.qantas.com/",
+    "kind": "official-site-icon"
+  },
+  "MH": {
+    "code": "MH",
+    "file": "/brands/mh.ico",
+    "source": "https://www.malaysiaairlines.com/etc.clientlibs/mh/clientlibs/clientlib-vue/resources/favicon.ico",
+    "homepage": "https://www.malaysiaairlines.com/",
+    "kind": "official-site-icon"
+  }
+}

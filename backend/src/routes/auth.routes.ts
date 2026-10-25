@@ -1,0 +1,15 @@
+import { Router } from 'express';
+import rateLimit from 'express-rate-limit';
+import { authController as c } from '../controllers/auth.controller';
+import { authenticate, originGuard } from '../middlewares/auth.middleware';
+import { userRepository } from '../repositories/user.repository';
+const router = Router();
+const limit = rateLimit({ windowMs: 15 * 60000, limit: 20, standardHeaders: 'draft-8', legacyHeaders: false, message: { success: false, message: 'Quá nhiều yêu cầu. Thử lại sau 15 phút.' } });
+router.post('/register', limit, originGuard, c.register);
+router.post('/login', limit, originGuard, c.login);
+router.post('/refresh', originGuard, c.refresh);
+router.post('/logout', originGuard, c.logout);
+router.post('/forgot-password', limit, c.forgot);
+router.post('/reset-password', limit, c.reset);
+router.get('/me', authenticate, async (req, res) => { res.json({ success: true, data: await userRepository.byId(req.auth!.id) }); });
+export default router;

@@ -1,0 +1,32 @@
+@base = http://localhost:3001/api/v1
+@origin = http://localhost:5174
+@token = replace_access_token
+@date = 2026-10-25
+
+### Health
+GET {{base}}/health
+
+### Airports
+GET {{base}}/airports?q=da+nang
+
+### Login (use password generated in DEMO-ACCOUNTS.md)
+POST {{base}}/auth/login
+Origin: {{origin}}
+Content-Type: application/json
+
+{"email":"demo@flight.local","password":"replace_generated_password"}
+
+### Search — update @date before use
+GET {{base}}/flights?origin=SGN&destination=HAN&date={{date}}&passengers=1&cabinClass=ECONOMY
+
+### Current user
+GET {{base}}/auth/me
+Authorization: Bearer {{token}}
+
+### My bookings
+GET {{base}}/bookings
+Authorization: Bearer {{token}}
+
+### Admin dashboard
+GET {{base}}/admin/dashboard
+Authorization: Bearer {{token}}

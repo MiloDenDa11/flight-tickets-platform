@@ -1,0 +1,107 @@
+{
+  "checkedAt": "2026-10-24T18:16:46.645Z",
+  "passed": [
+    "Airport search without accents, swap, round-trip fields, passenger stepper and cabin query preserved",
+    "Flight details expansion, working departure filter, sorting and API error recovery",
+    "Protected checkout redirect, login request and return to selected fares",
+    "Unchanged booking payload, pending countdown, mock payment, ticket download/print and refund UI (writes intercepted)",
+    "My bookings tabs, cancelled state and empty state",
+    "Favorite route save/remove requests and empty state",
+    "Profile/preferences existing PATCH/PUT contracts and responsive account forms",
+    "Assistant request contract and flight recommendations UI",
+    "Mobile navigation, Escape close and focus restoration",
+    "Interactive vector map, route prefill, airline directory (21 brands), destination tabs and FAQ",
+    "Reduced motion preference disables continuous route animation",
+    "Registration form, password visibility and original auth payload",
+    "Expired/absent session keeps protected routes inaccessible",
+    "All seven admin screens, scrollable tables, modal keyboard focus and 320px layout"
+  ],
+  "exceptions": [],
+  "eventErrors": [],
+  "mutationMode": "ALL MUTATIONS INTERCEPTED BY CDP; live API GETs for catalog/flights/admin; no PostgreSQL business-data writes",
+  "requests": [
+    {
+      "endpoint": "/auth/login",
+      "method": "POST",
+      "fields": [
+        "email",
+        "password"
+      ]
+    },
+    {
+      "endpoint": "/bookings",
+      "method": "POST",
+      "fields": [
+        "contactEmail",
+        "contactPhone",
+        "fareIds",
+        "idempotencyKey",
+        "passengers"
+      ],
+      "passengers": 2
+    },
+    {
+      "endpoint": "/bookings/:id/pay",
+      "method": "POST"
+    },
+    {
+      "endpoint": "/bookings/:id/cancel",
+      "method": "POST"
+    },
+    {
+      "endpoint": "/users/favorites",
+      "method": "POST",
+      "fields": [
+        "originId",
+        "destinationId"
+      ]
+    },
+    {
+      "endpoint": "/users/favorites/:id",
+      "method": "DELETE"
+    },
+    {
+      "endpoint": "/users/profile",
+      "method": "PATCH",
+      "fields": [
+        "fullName",
+        "phone"
+      ]
+    },
+    {
+      "endpoint": "/users/preferences",
+      "method": "PUT",
+      "fields": [
+        "cabinClass",
+        "maxBudget",
+        "preferredAirlines",
+        "prioritize"
+      ]
+    },
+    {
+      "endpoint": "/assistant/recommend",
+      "method": "POST",
+      "fields": [
+        "query",
+        "search"
+      ]
+    },
+    {
+      "endpoint": "/auth/register",
+      "method": "POST",
+      "fields": [
+        "email",
+        "password",
+        "fullName"
+      ]
+    },
+    {
+      "endpoint": "/auth/login",
+      "method": "POST",
+      "fields": [
+        "email",
+        "password"
+      ]
+    }
+  ]
+}

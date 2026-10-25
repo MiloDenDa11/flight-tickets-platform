@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-10-24T15:37:21.067Z",
+  "passed": [
+    "home desktop/mobile",
+    "search desktop/mobile",
+    "protected checkout login",
+    "passenger form",
+    "seat hold",
+    "mock payment",
+    "ticket issuance",
+    "refund cancellation",
+    "profile mobile",
+    "admin dashboard",
+    "admin flight inventory mobile",
+    "no horizontal page overflow",
+    "no unhandled JS exceptions"
+  ]
+}

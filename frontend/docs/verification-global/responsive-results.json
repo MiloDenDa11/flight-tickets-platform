@@ -1,0 +1,143 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "shortViewport": {
+        "buttonBottom": 792.1875,
+        "viewport": 800
+      }
+    },
+    {
+      "width": 1440,
+      "overflow": false,
+      "card": {
+        "left": 350.5,
+        "right": 1352.5,
+        "top": 822.3125,
+        "bottom": 1081.296875
+      },
+      "price": {
+        "left": 1132.484375,
+        "right": 1325.484375,
+        "top": 878.109375,
+        "bottom": 924.296875
+      },
+      "button": {
+        "left": 1160.40625,
+        "right": 1325.484375,
+        "top": 936.296875,
+        "bottom": 979.296875
+      }
+    },
+    {
+      "width": 1280,
+      "overflow": false,
+      "card": {
+        "left": 326,
+        "right": 1217,
+        "top": 814.359375,
+        "bottom": 1073.34375
+      },
+      "price": {
+        "left": 996.984375,
+        "right": 1189.984375,
+        "top": 870.15625,
+        "bottom": 916.34375
+      },
+      "button": {
+        "left": 1024.90625,
+        "right": 1189.984375,
+        "top": 928.34375,
+        "bottom": 971.34375
+      }
+    },
+    {
+      "width": 1024,
+      "overflow": false,
+      "card": {
+        "left": 326,
+        "right": 961,
+        "top": 813.265625,
+        "bottom": 1148.4375
+      },
+      "price": {
+        "left": 741,
+        "right": 934,
+        "top": 945.25,
+        "bottom": 991.4375
+      },
+      "button": {
+        "left": 768.921875,
+        "right": 934,
+        "top": 1003.4375,
+        "bottom": 1046.4375
+      }
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "card": {
+        "left": 24,
+        "right": 729,
+        "top": 1183.0625,
+        "bottom": 1518.234375
+      },
+      "price": {
+        "left": 509,
+        "right": 702,
+        "top": 1315.046875,
+        "bottom": 1361.234375
+      },
+      "button": {
+        "left": 536.921875,
+        "right": 702,
+        "top": 1373.234375,
+        "bottom": 1416.234375
+      }
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "card": {
+        "left": 16,
+        "right": 374,
+        "top": 1297.421875,
+        "bottom": 1755.875
+      },
+      "price": {
+        "left": 51,
+        "right": 183.921875,
+        "top": 1580.890625,
+        "bottom": 1625.4375
+      },
+      "button": {
+        "left": 198.921875,
+        "right": 355,
+        "top": 1570.265625,
+        "bottom": 1613.265625
+      }
+    },
+    {
+      "width": 320,
+      "overflow": false,
+      "card": {
+        "left": 16,
+        "right": 304,
+        "top": 1408.703125,
+        "bottom": 1964.59375
+      },
+      "price": {
+        "left": 35,
+        "right": 285,
+        "top": 1695.171875,
+        "bottom": 1739.71875
+      },
+      "button": {
+        "left": 35,
+        "right": 285,
+        "top": 1755.71875,
+        "bottom": 1803.71875
+      }
+    }
+  ]
+}

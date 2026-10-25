@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import { authenticate } from '../middlewares/auth.middleware';
+import { bookingController as c } from '../controllers/booking.controller';
+const router = Router();
+router.use(authenticate);
+router.get('/', c.list);
+router.post('/', c.create);
+router.get('/:id', c.detail);
+router.post('/:id/pay', c.pay);
+router.post('/:id/cancel', c.cancel);
+router.get('/:id/tickets', c.tickets);
+export default router;

@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "typography": {
+        "heading": {
+          "font": "\"Playfair Display\", \"Noto Serif\", \"Times New Roman\", serif",
+          "size": 86.4,
+          "display": "block"
+        },
+        "body": {
+          "font": "\"Be Vietnam Pro\", \"Segoe UI\", Arial, sans-serif",
+          "size": 17,
+          "display": "block"
+        },
+        "nav": {
+          "font": "\"Be Vietnam Pro\", \"Segoe UI\", Arial, sans-serif",
+          "size": 15,
+          "display": "flex"
+        },
+        "boarding": {
+          "font": "\"Be Vietnam Pro\", \"Segoe UI\", Arial, sans-serif",
+          "size": 16,
+          "display": "block"
+        },
+        "fontLoaded": true
+      }
+    },
+    {
+      "nav": {
+        "brand": {
+          "left": 72.5,
+          "right": 296.484375
+        },
+        "links": {
+          "left": 545.734375,
+          "right": 1110.8125
+        },
+        "account": {
+          "left": 1140.8125,
+          "right": 1352.5
+        }
+      }
+    },
+    {
+      "independentIllustrativeCities": 5,
+      "noDemoInventoryLeak": true
+    },
+    {
+      "mapZoomTooltip": true
+    },
+    {
+      "regions": 5,
+      "destinations": 10,
+      "editorialAvailabilityGate": true
+    },
+    {
+      "heroReducedMotion": true
+    }
+  ]
+}

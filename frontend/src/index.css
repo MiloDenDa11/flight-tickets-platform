@@ -1,0 +1,5 @@
+﻿@import url('/fonts/fonts.css');
+@import url('/fonts/playfair.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

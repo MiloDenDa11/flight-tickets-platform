@@ -1,0 +1,40 @@
+name: Flight Tickets CI
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: flight_user
+          POSTGRES_PASSWORD: ci_test_password_only
+          POSTGRES_DB: flight_tickets_db
+        ports: ["5434:5432"]
+        options: >-
+          --health-cmd "pg_isready -U flight_user -d flight_tickets_db"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+      redis:
+        image: redis:7-alpine
+        ports: ["6381:6379"]
+    env:
+      DATABASE_URL: postgresql://flight_user:ci_test_password_only@localhost:5434/flight_tickets_db?schema=public
+      REDIS_URL: redis://localhost:6381
+      JWT_ACCESS_SECRET: ci_only_access_secret_32_characters_long
+      NODE_ENV: test
+      FRONTEND_URL: http://localhost:5174
+      ENABLE_MOCK_PAYMENTS: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            backend/package-lock.json
+            frontend/package-lock.json
+      - run: npm ci --prefix backend
+      - run: npm ci --prefix frontend
+      - run: npm test
+      - run: npm run test:integration
+      - run: npm run build --prefix frontend

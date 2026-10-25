@@ -1,0 +1,12 @@
+ALTER TABLE "flight_fares" ADD CONSTRAINT "fare_inventory_bounds" CHECK ("total_seats" > 0 AND "available_seats" >= 0 AND "available_seats" <= "total_seats");
+ALTER TABLE "flight_fares" ADD CONSTRAINT "fare_price_bounds" CHECK ("base_price" >= 0 AND "tax" >= 0);
+ALTER TABLE "flight_fares" ADD CONSTRAINT "fare_baggage_bounds" CHECK ("baggage_kg" >= 0 AND "cabin_baggage_kg" >= 0);
+ALTER TABLE "flight_fares" ADD CONSTRAINT "fare_cabin_values" CHECK ("cabin_class" IN ('ECONOMY', 'PREMIUM', 'BUSINESS'));
+ALTER TABLE "flights" ADD CONSTRAINT "flight_route_and_times" CHECK ("origin_id" <> "destination_id" AND "arrival_time" > "departure_time");
+ALTER TABLE "flights" ADD CONSTRAINT "flight_status_values" CHECK ("status" IN ('SCHEDULED', 'CANCELLED', 'COMPLETED'));
+ALTER TABLE "bookings" ADD CONSTRAINT "booking_status_values" CHECK ("status" IN ('PENDING', 'CONFIRMED', 'CANCELLED', 'EXPIRED'));
+ALTER TABLE "bookings" ADD CONSTRAINT "booking_amount_bounds" CHECK ("total_amount" >= 0 AND "currency" = 'VND');
+ALTER TABLE "reviews" ADD CONSTRAINT "review_rating_bounds" CHECK ("rating" BETWEEN 1 AND 5);
+ALTER TABLE "users" ADD CONSTRAINT "user_role_values" CHECK ("role" IN ('USER', 'ADMIN'));
+ALTER TABLE "payments" ADD CONSTRAINT "payment_amount_bounds" CHECK ("amount" >= 0);
+ALTER TABLE "favorite_routes" ADD CONSTRAINT "favorite_route_distinct" CHECK ("origin_id" <> "destination_id");

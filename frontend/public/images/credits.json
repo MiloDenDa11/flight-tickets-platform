@@ -1,0 +1,29 @@
+[
+  {
+    "caption": "Biển Mỹ Khê",
+    "filename": "my-khe.webp",
+    "author": "Jpatokal",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:My_Khe_Beach_Danang_Coastline.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "modification": "Resized and converted to WebP; displayed with CSS cropping."
+  },
+  {
+    "caption": "Một thoáng Hà Nội",
+    "filename": "ho-hoan-kiem.webp",
+    "author": "Mig Gilbert",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Turtle_Tower_(39558135494).jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "modification": "Resized and converted to WebP; displayed with CSS cropping."
+  },
+  {
+    "caption": "Một sớm Đà Lạt",
+    "filename": "da-lat.webp",
+    "author": "P. Hughes",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Da_Lat_-_Xuan_Huong_Lake.jpg",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "modification": "Resized and converted to WebP; displayed with CSS cropping."
+  }
+]

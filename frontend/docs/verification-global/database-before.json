@@ -1,0 +1,87 @@
+[
+  {
+    "table": "_prisma_migrations",
+    "count": "2",
+    "digest": "fd436efc2fa3785a2dd9a5ef565fd850"
+  },
+  {
+    "table": "airlines",
+    "count": "3",
+    "digest": "4e82cea0e26820369b38f579188d3dd4"
+  },
+  {
+    "table": "airports",
+    "count": "9",
+    "digest": "72862eefee6e3c9a3176e657f910be1a"
+  },
+  {
+    "table": "booking_segments",
+    "count": "2",
+    "digest": "fc2f19bb940d4e96631dca4abbc562bd"
+  },
+  {
+    "table": "bookings",
+    "count": "2",
+    "digest": "294801ef8bf172104ef6a45a8273f427"
+  },
+  {
+    "table": "favorite_routes",
+    "count": "0",
+    "digest": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "table": "flight_fares",
+    "count": "6300",
+    "digest": "44fddf96a1fcb2492d224de396b04e83"
+  },
+  {
+    "table": "flight_preferences",
+    "count": "0",
+    "digest": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "table": "flights",
+    "count": "2100",
+    "digest": "ae19b9c4556c3db606b80940e5be69b7"
+  },
+  {
+    "table": "passengers",
+    "count": "2",
+    "digest": "50d6f27f36bf6cd9098e757a7fba8146"
+  },
+  {
+    "table": "password_reset_tokens",
+    "count": "0",
+    "digest": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "table": "payments",
+    "count": "2",
+    "digest": "95b8ac17eedf1423aa596266ac411963"
+  },
+  {
+    "table": "refresh_tokens",
+    "count": "4",
+    "digest": "77e01c4aee29ccae0acf188238e37643"
+  },
+  {
+    "table": "reviews",
+    "count": "0",
+    "digest": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "table": "search_history",
+    "count": "0",
+    "digest": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "table": "tickets",
+    "count": "2",
+    "digest": "fb3775f7d3bbaca61330e92ccbe41953"
+  },
+  {
+    "table": "users",
+    "count": "2",
+    "digest": "6e2c3e0d669fc547aa0d903960319d62"
+  }
+]
