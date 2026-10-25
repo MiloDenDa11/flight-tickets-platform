@@ -106,8 +106,10 @@
 .airline-mark { width: 46px; height: 38px; border: 1px solid #e4eaed; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; background: white; padding: 5px; flex-shrink: 0; }
 .airline-mark > img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
 .airline-mark > span { font-family: var(--font-heading); font-size: 13px; font-weight: 800; }
-.airline-mark.large { width: 135px; height: 48px; padding: 5px; border: 0; border-radius: 0; margin-bottom: 16px; }
-.airline-mark.large:not(.wordmark) > img { width: 33px; height: 33px; object-fit: contain; }
+.airline-card .airline-mark.large { width: 100%; height: 60px; padding: 4px 6px; border: 0; border-radius: 10px; margin-bottom: 4px; background: var(--airline-logo-background,#fff); }
+.airline-card .airline-mark.large > img { width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; object-position: center; transition: transform .25s var(--ease); }
+.airline-card .airline-mark.logo-symbol > img { max-width: 64px; }
+.airline-card:hover .airline-mark.large > img,.airline-card:focus-visible .airline-mark.large > img { transform: scale(1.035); }
 .airline-mark.large > span { font-size: 23px; }
 .airline-card > strong { font-size: 15px; font-weight: 600; line-height: 1.6; margin-bottom: 5px; min-height: 0; }
 .airline-card > small { font-size: 13px; color: #637e8e; }
@@ -257,7 +259,7 @@
   .map-view-controls { flex-direction: row; bottom: 45px; }
   .airline-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; }
   .airline-card { padding: 28px 14px 20px; min-height: 220px; border-radius: 20px; background: linear-gradient(145deg,#fff,#f4f8fa); }
-  .airline-mark.large { width: 100px; height: 40px; }
+  .airline-card .airline-mark.large { height: 52px; }
   .airline-card > strong { font-size: 15px; min-height: 0; font-weight: 600; }
   .airline-action { font-size: 12px; gap: 3px; color: #617b8a; line-height: 1.5; min-height: 44px; }
   .highlight-grid { grid-template-columns: 1fr; }
@@ -332,7 +334,7 @@
   .map-canvas .world-leaflet .leaflet-control-zoom { margin-left: 17px; margin-top: 50px; }
   .airline-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
   .airline-card { min-height: 220px; border-radius: 20px; padding: 28px 14px 20px; background: linear-gradient(145deg,#fff,#f4f8fa); }
-  .airline-mark.large { width: 120px; height: 45px; }
+  .airline-card .airline-mark.large { height: 57px; }
   .airline-card > strong { font-size: 15px; min-height: 0; font-weight: 600; }
   .airline-action { font-size: 12px; color: #617b8a; line-height: 1.5; min-height: 44px; }
 }

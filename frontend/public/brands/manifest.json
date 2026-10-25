@@ -4,115 +4,253 @@
     "file": "/brands/vn.svg",
     "source": "https://www.vietnamairlines.com/content/dam/vna/logos/vna-logo.svg",
     "homepage": "https://www.vietnamairlines.com/",
-    "kind": "official-logo"
+    "kind": "official-logo",
+    "card": {
+      "file": "/brands/cards/vn.svg",
+      "layout": "wordmark",
+      "background": "linear-gradient(135deg,#08798a,#00586e)",
+      "source": "https://www.vietnamairlines.com/content/dam/vna/logos/vna-logo.svg",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "7b2f149ca3dab252096a4eef3c4fe5bc99b5a204ce606d1653f05c8b55210679"
+    }
   },
   "VJ": {
     "code": "VJ",
     "file": "/brands/vj.ico",
     "source": "https://www.vietjetair.com/favicon.ico",
     "homepage": "https://www.vietjetair.com/",
-    "kind": "official-site-icon"
+    "kind": "official-site-icon",
+    "card": {
+      "file": "/brands/cards/vj.svg",
+      "layout": "wordmark",
+      "background": "linear-gradient(135deg,#fff4e1,#fff0ed)",
+      "source": "https://www.logo.wine/a/logo/VietJet_Air/VietJet_Air-Logo.wine.svg",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "officialReference": "https://www.vietjetair.com/",
+      "sha256": "45fe440ec3403df5f283836ae31ff4638659b6de7205163268e9ae11b432c1d8"
+    }
   },
   "QH": {
     "code": "QH",
     "file": "/brands/qh.png",
     "source": "https://www.bambooairways.com/o/wpbav-home-theme/css/assets/logo.png",
     "homepage": "https://www.bambooairways.com/",
-    "kind": "official-logo"
+    "kind": "official-logo",
+    "card": {
+      "file": "/brands/cards/qh.svg",
+      "layout": "wordmark",
+      "background": "linear-gradient(135deg,#edf8ef,#e5f2ed)",
+      "source": "https://www.bambooairways.com/o/wpbav-home-theme/css/assets/logo.png",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "7c5e839f9bbd4d6d4ab1b36bdf7c8a9b29aa9d5d8c6ef281ceb16b5daedfbef8"
+    }
   },
   "BL": {
     "code": "BL",
     "file": "/brands/bl.png",
     "source": "https://www.pacificairlines.com/wp-content/uploads/2024/10/Logo1-1.png",
     "homepage": "https://www.pacificairlines.com/",
-    "kind": "official-logo"
+    "kind": "official-logo",
+    "card": {
+      "file": "/brands/cards/bl.svg",
+      "layout": "wordmark",
+      "background": "#eef4fc",
+      "source": "https://www.pacificairlines.com/wp-content/uploads/2024/10/Logo1-1.png",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "d26fd0480566450f74527994f3404ed7b8f9f9cd816c90e1160278cf0fa83334"
+    }
   },
   "VU": {
     "code": "VU",
     "homepage": "https://www.vietravelairlines.com/",
-    "kind": "text-only"
+    "kind": "text-only",
+    "card": {
+      "file": "/brands/cards/vu.svg",
+      "layout": "wordmark",
+      "background": "#fff8df",
+      "source": "https://erpt.vietravelairlines.vn/theme/images/VTA_Logo_Ngang.png",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "2d60ae5ef21b23951f6da473e721a410364f860dedf9f50293bfe3c899ec8d68"
+    }
   },
   "SQ": {
     "code": "SQ",
     "file": "/brands/sq.ico",
     "source": "https://www.singaporeair.com/favicon.ico",
     "homepage": "https://www.singaporeair.com/",
-    "kind": "official-site-icon"
+    "kind": "official-site-icon",
+    "card": {
+      "file": "/brands/cards/sq.svg",
+      "layout": "wordmark",
+      "background": "#fff9ed",
+      "source": "https://www.singaporeair.com/content/dam/sia/web-assets/icons/singapore_airlines_logo.png",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "49e3b986ee3912ab655be8adaa3187e67488a00b72bb321c536280e780aee9d6"
+    }
   },
   "EK": {
     "code": "EK",
     "file": "/brands/ek.ico",
     "source": "https://www.emirates.com/favicon.ico",
     "homepage": "https://www.emirates.com/",
-    "kind": "official-site-icon"
+    "kind": "official-site-icon",
+    "card": {
+      "file": "/brands/cards/ek.svg",
+      "layout": "stacked",
+      "background": "#d71920",
+      "source": "https://c.ekstatic.net/ecl/logos/emirates/emirates-logo-badge.svg",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "25e3ffe11c20806c010de2ad15abea8e82702f8c676408add1b8d4a789372655"
+    }
   },
   "QR": {
     "code": "QR",
     "file": "/brands/qr.png",
     "source": "https://www.qatarairways.com/content/dam/qatar/images/qr-official-logo.png",
     "homepage": "https://www.qatarairways.com/",
-    "kind": "official-logo"
+    "kind": "official-logo",
+    "card": {
+      "file": "/brands/cards/qr.svg",
+      "layout": "wordmark",
+      "background": "#fff",
+      "source": "https://www.qatarairways.com/content/dam/qatar/images/qr-official-logo.png",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "4854f80580a6113ab6a2c079417381a74f5a91341a4993d623278aef5dc3d24c"
+    }
   },
   "CX": {
     "code": "CX",
     "file": "/brands/cx.svg",
     "source": "https://www.cathaypacific.com/content/dam/header-footer-lrp/cathay80-en.originalimage.svg",
     "homepage": "https://www.cathaypacific.com/",
-    "kind": "official-logo"
+    "kind": "official-logo",
+    "card": {
+      "file": "/brands/cards/cx.svg",
+      "layout": "wordmark",
+      "background": "#eaf4ef",
+      "source": "https://www.cathaypacific.com/content/dam/header-footer-lrp/cathay80-en.originalimage.svg",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "c1b03b463f93c2f20c999c60fa93d2efdbdb06f93aa3c564267ff8cc96c0a36c"
+    }
   },
   "TG": {
     "code": "TG",
     "file": "/brands/tg.ico",
     "source": "https://www.thaiairways.com/favicon.ico",
     "homepage": "https://www.thaiairways.com/",
-    "kind": "official-site-icon"
+    "kind": "official-site-icon",
+    "card": {
+      "file": "/brands/cards/tg.svg",
+      "layout": "wordmark",
+      "background": "#fbf1fa",
+      "source": "https://www.thaiairways.com/en-vn/",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "4a71e286029d7dbd0a58dcac6d6f0637f6ae960fb2df9719b82257dd80dc5d9d"
+    }
   },
   "KE": {
     "code": "KE",
     "file": "/brands/ke.ico",
     "source": "https://www.koreanair.com/favicon.ico?3",
     "homepage": "https://www.koreanair.com/",
-    "kind": "official-site-icon"
+    "kind": "official-site-icon",
+    "card": {
+      "file": "/brands/cards/ke.ico",
+      "layout": "symbol",
+      "background": "#edf4fc",
+      "source": "https://www.koreanair.com/favicon.ico?3",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "3d968781133fa6cd00ef563778b2787b941a68df434c29de317e4766714cde02"
+    }
   },
   "JL": {
     "code": "JL",
     "homepage": "https://www.jal.com/",
-    "kind": "text-only"
+    "kind": "text-only",
+    "card": {
+      "file": "/brands/cards/jl.svg",
+      "layout": "wordmark",
+      "background": "#fff0f1",
+      "source": "https://www.logo.wine/a/logo/Japan_Airlines/Japan_Airlines-Logo.wine.svg",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "officialReference": "https://press.jal.co.jp/en/release/201101/003352.html",
+      "sha256": "39f4552eb4df4939c9871ca01ec88cef97a49f18d4533bb6ce7afb1c60ac2f7e"
+    }
   },
   "NH": {
     "code": "NH",
     "file": "/brands/nh.svg",
     "source": "https://www.ana.co.jp/common-layout2/images/www2/logo_ana_tagline.svg",
     "homepage": "https://www.ana.co.jp/",
-    "kind": "official-logo"
+    "kind": "official-logo",
+    "card": {
+      "file": "/brands/cards/nh.svg",
+      "layout": "wordmark",
+      "background": "#edf3ff",
+      "source": "https://www.ana.co.jp/common-layout2/images/www2/logo_ana_tagline.svg",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "eb186eefbf391d2f38f70125997db82fe012652e7e809b3c42b27e3464e591af"
+    }
   },
   "BR": {
     "code": "BR",
     "file": "/brands/br.png",
     "source": "https://www.evaair.com/system/assets/images/logo-evaair-header.png",
     "homepage": "https://www.evaair.com/",
-    "kind": "official-logo"
+    "kind": "official-logo",
+    "card": {
+      "file": "/brands/cards/br.svg",
+      "layout": "wordmark",
+      "background": "#eaf6ef",
+      "source": "https://www.evaair.com/system/assets/images/logo-evaair-header.png",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "a1bc29f214ae0cff00a4bfb62f63b2f0ebd1f13424ec42ceec0f77e0a7b7fb8a"
+    }
   },
   "CI": {
     "code": "CI",
     "file": "/brands/ci.webp",
     "source": "https://prd-api.china-airlines.com/sea/vi/Images/logo-light-en_tcm537-72169.webp",
     "homepage": "https://www.china-airlines.com/",
-    "kind": "official-logo"
+    "kind": "official-logo",
+    "card": {
+      "file": "/brands/cards/ci.svg",
+      "layout": "wordmark",
+      "background": "#fff1f7",
+      "source": "https://prd-api.china-airlines.com/sea/vi/Images/logo-light-en_tcm537-72169.webp",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "b6716e2e4d3549e4e9de9064b4c5dc1fc0214fa28d23bad0526ae97fd6e1a8fb"
+    }
   },
   "LH": {
     "code": "LH",
     "file": "/brands/lh.ico",
     "source": "https://www.lufthansa.com/favicon.ico",
     "homepage": "https://www.lufthansa.com/",
-    "kind": "official-site-icon"
+    "kind": "official-site-icon",
+    "card": {
+      "file": "/brands/cards/lh.svg",
+      "layout": "wordmark",
+      "background": "#fff",
+      "source": "https://www.lufthansa.com/us/en/homepage",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "96f8726093c50134012c873325c5a3793aaa531f5b810ca0a6a5b817c17405cc"
+    }
   },
   "AF": {
     "code": "AF",
     "file": "/brands/af.svg",
     "source": "https://www.airfrance.com/assets/components/46.1.0/af/logo/brand-logo.svg",
     "homepage": "https://www.airfrance.com/",
-    "kind": "official-logo"
+    "kind": "official-logo",
+    "card": {
+      "file": "/brands/cards/af.svg",
+      "layout": "wordmark",
+      "background": "#edf2fb",
+      "source": "https://www.airfrance.com/assets/components/46.1.0/af/logo/brand-logo.svg",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "cda019d5cc51730b7b67877aac0e30ece27b25cdb8f0cadc5cdb6789bb572030"
+    }
   },
   "BA": {
     "code": "BA",
@@ -120,27 +258,59 @@
     "source": "https://www.britishairways.com/",
     "homepage": "https://www.britishairways.com/",
     "kind": "official-logo",
-    "note": "Logo embedded in the official homepage; original image preserved locally."
+    "note": "Logo embedded in the official homepage; original image preserved locally.",
+    "card": {
+      "file": "/brands/cards/ba.svg",
+      "layout": "wordmark",
+      "background": "#eef3fc",
+      "source": "https://www.britishairways.com/",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "d6b1981cb1caf7f493ea9e3dea5a92d6b2c5e1692b873747d559e7894639d929"
+    }
   },
   "TK": {
     "code": "TK",
     "file": "/brands/tk.ico",
     "source": "https://www.turkishairlines.com/favicon.ico",
     "homepage": "https://www.turkishairlines.com/",
-    "kind": "official-site-icon"
+    "kind": "official-site-icon",
+    "card": {
+      "file": "/brands/cards/tk.ico",
+      "layout": "symbol",
+      "background": "#fff0ef",
+      "source": "https://www.turkishairlines.com/favicon.ico",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "e6a0a50a278b60eeeeb9caaf47d7c05cedb62ba5d4005020e2b23c61ae9ca3b2"
+    }
   },
   "QF": {
     "code": "QF",
     "file": "/brands/qf.ico",
     "source": "https://www.qantas.com/favicon.ico",
     "homepage": "https://www.qantas.com/",
-    "kind": "official-site-icon"
+    "kind": "official-site-icon",
+    "card": {
+      "file": "/brands/cards/qf.svg",
+      "layout": "wordmark",
+      "background": "#fff0ed",
+      "source": "https://www.qantas.com/icons/runway_brand_logo_master_qantas_horiz.svg",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "ef3f594d7b37f0b293e379df63c814e697f0aabd7d595e74d86cd7864550c463"
+    }
   },
   "MH": {
     "code": "MH",
     "file": "/brands/mh.ico",
     "source": "https://www.malaysiaairlines.com/etc.clientlibs/mh/clientlibs/clientlib-vue/resources/favicon.ico",
     "homepage": "https://www.malaysiaairlines.com/",
-    "kind": "official-site-icon"
+    "kind": "official-site-icon",
+    "card": {
+      "file": "/brands/cards/mh.svg",
+      "layout": "wordmark",
+      "background": "#eef4fc",
+      "source": "https://www.malaysiaairlines.com/content/dam/mh/my/en/header-footer/Malaysia-Airlines-logo.png",
+      "note": "Card-only presentation. Original artwork retained; only empty outer canvas is trimmed. No recoloring, redrawing or stretching.",
+      "sha256": "daadcf3ce5ce646d1d438b9d7a337d96b8eef9cbaa5e43bfebcf76f67db9acb4"
+    }
   }
 }

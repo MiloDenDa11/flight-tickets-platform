@@ -16,3 +16,4 @@ Desktop.ini
 *.tsbuildinfo
 *.pem
 *.key
+/backend/uploads/

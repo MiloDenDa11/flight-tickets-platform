@@ -23,6 +23,7 @@ export function Protected({ admin = false }: { admin?: boolean }) {
 }
 export function Layout() {
   const { user, logout } = useAuth(); const navigate = useNavigate(); const [error, setError] = useState(''); const [menu, setMenu] = useState(false);
+  const isAdmin = user?.role === 'ADMIN';
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const drawer = useRef<HTMLDivElement>(null);
@@ -59,10 +60,10 @@ export function Layout() {
   return <>
     <a href="#main-content" className="skip-link">Bỏ qua đến nội dung chính</a>
     <div className="topbar"><div className="container"><span><Icon name="globe" /> Mở ra thế giới. Bắt đầu từ một hành trình.</span><span>Trải nghiệm đặt vé demo <i /> Giá đã gồm thuế & phí <b>VI · VND</b></span></div></div>
-    <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}><div className="container nav">
+    <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}><div className={`container nav ${isAdmin ? 'has-admin-access' : ''}`}>
       <Link className="brand" to="/" aria-label="Flight Tickets — Trang chủ"><span className="brand-icon"><Plane /></span><span>flight<span className="brand-light">tickets</span><small>EVERY JOURNEY, A NEW STORY</small></span></Link>
       <nav className="nav-links" aria-label="Điều hướng chính">{navigation}</nav>
-      <div className="nav-account">{user ? <><Link className="profile-link" to="/profile" aria-label={`Tài khoản ${user.fullName}`}><span className="avatar">{user.fullName.charAt(0)}</span><span>{user.fullName.split(' ').slice(-2).join(' ')}</span></Link><button className="text-button signout" onClick={signOut}>Đăng xuất</button></> : <><Link className="login-link" to="/login">Đăng nhập</Link><Link className="button small register-link" to="/register">Đăng ký <Icon name="northeast" /></Link></>}</div>
+      <div className="nav-account">{user ? <>{isAdmin && <Link className="admin-mode-link" to="/admin" aria-label="Vào trang quản trị" title="Vào trang quản trị"><Icon name="shield" /><span>Quản trị</span></Link>}<Link className="profile-link" to="/profile" aria-label={`Tài khoản ${user.fullName}`}><span className="avatar">{user.fullName.charAt(0)}</span><span>{user.fullName.split(' ').slice(-2).join(' ')}</span></Link><button className="text-button signout" onClick={signOut}>Đăng xuất</button></> : <><Link className="login-link" to="/login">Đăng nhập</Link><Link className="button small register-link" to="/register">Đăng ký <Icon name="northeast" /></Link></>}</div>
       <button ref={toggle} className="menu-toggle" aria-label="Mở menu điều hướng" aria-expanded={menu} aria-controls="mobile-navigation" onClick={() => setMenu(true)}><Icon name="menu" /></button>
     </div></header>
     {menu && <div className="drawer-backdrop" onClick={() => setMenu(false)}><div ref={drawer} id="mobile-navigation" className="mobile-drawer" role="dialog" aria-label="Điều hướng" aria-modal="true" onClick={e => e.stopPropagation()}><div className="drawer-heading"><strong>Hành trình của bạn</strong><button aria-label="Đóng menu" onClick={() => { setMenu(false); toggle.current?.focus(); }}><Icon name="close" /></button></div><nav>{navigation}<NavLink to="/assistant">Gợi ý cá nhân hóa</NavLink><NavLink to="/favorites">Đường bay yêu thích</NavLink><NavLink to="/profile">Tài khoản của tôi</NavLink>{user?.role === 'ADMIN' && <NavLink to="/admin">Trung tâm quản trị</NavLink>}</nav><div className="drawer-account">{user ? <button className="button full" onClick={signOut}>Đăng xuất</button> : <><Link className="button full" to="/login">Đăng nhập</Link><Link className="button ghost full" to="/register">Tạo tài khoản</Link></>}</div><p>Flight Tickets Platform<br /><span>VI · VND</span></p></div></div>}

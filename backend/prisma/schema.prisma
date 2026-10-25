@@ -24,6 +24,8 @@ model User {
   reviews Review[]
   preference FlightPreference?
   searches SearchHistory[]
+  auditEvents AdminAuditEvent[]
+  syncRuns ProviderSyncRun[]
   @@map("users")
 }
 
@@ -54,8 +56,14 @@ model Airline {
   name String @db.VarChar(100)
   color String @default("#086c72") @db.VarChar(7)
   isActive Boolean @default(true) @map("is_active")
+  country String @default("Chưa cập nhật") @db.VarChar(100)
+  logoUrl String? @map("logo_url") @db.VarChar(2048)
+  website String? @db.VarChar(2048)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
   flights Flight[]
   reviews Review[]
+  observations FareObservation[]
   @@map("airlines")
 }
 
@@ -87,12 +95,23 @@ model Flight {
   status String @default("SCHEDULED") @db.VarChar(20)
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+  source String @default("LOCAL_DEMO") @db.VarChar(60)
+  externalId String? @map("external_id") @db.VarChar(150)
+  operationalStatus String? @map("operational_status") @db.VarChar(24)
+  actualDepartureTime DateTime? @map("actual_departure_time") @db.Timestamptz()
+  actualArrivalTime DateTime? @map("actual_arrival_time") @db.Timestamptz()
+  scheduleObservedAt DateTime? @map("schedule_observed_at") @db.Timestamptz()
+  statusObservedAt DateTime? @map("status_observed_at") @db.Timestamptz()
+  statusSource String? @map("status_source") @db.VarChar(60)
   airline Airline @relation(fields: [airlineId], references: [id])
   origin Airport @relation("Departure", fields: [originId], references: [id])
   destination Airport @relation("Arrival", fields: [destinationId], references: [id])
   fares FlightFare[]
+  observations FareObservation[]
+  @@unique([source, externalId])
   @@unique([flightNumber, departureTime])
   @@index([originId, destinationId, departureTime])
+  @@index([airlineId, departureTime])
   @@map("flights")
 }
 
@@ -107,8 +126,12 @@ model FlightFare {
   refundable Boolean @default(false)
   totalSeats Int @map("total_seats")
   availableSeats Int @map("available_seats")
+  source String @default("LOCAL_DEMO") @db.VarChar(60)
+  providerAvailableSeats Int? @map("provider_available_seats")
+  priceObservedAt DateTime @default(now()) @map("price_observed_at") @db.Timestamptz()
   flight Flight @relation(fields: [flightId], references: [id], onDelete: Cascade)
   segments BookingSegment[]
+  observations FareObservation[]
   @@unique([flightId, cabinClass])
   @@map("flight_fares")
 }
@@ -133,6 +156,7 @@ model Booking {
   @@unique([userId, idempotencyKey])
   @@index([status, expiresAt])
   @@index([userId, createdAt])
+  @@index([createdAt])
   @@map("bookings")
 }
 
@@ -186,7 +210,10 @@ model Payment {
   amount Int
   status String @default("PAID") @db.VarChar(20)
   paidAt DateTime @default(now()) @map("paid_at") @db.Timestamptz()
+  refundedAt DateTime? @map("refunded_at") @db.Timestamptz()
   booking Booking @relation(fields: [bookingId], references: [id])
+  @@index([paidAt])
+  @@index([refundedAt])
   @@map("payments")
 }
 
@@ -234,4 +261,74 @@ model SearchHistory {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@index([userId, createdAt])
   @@map("search_history")
+}
+
+model FareObservation {
+  id Int @id @default(autoincrement())
+  fareId Int? @map("fare_id")
+  flightId Int? @map("flight_id")
+  airlineId Int? @map("airline_id")
+  airlineCode String @map("airline_code") @db.VarChar(3)
+  airlineName String @map("airline_name") @db.VarChar(100)
+  flightNumber String @map("flight_number") @db.VarChar(10)
+  originCode String @map("origin_code") @db.Char(3)
+  destinationCode String @map("destination_code") @db.Char(3)
+  originCountry String @map("origin_country") @db.VarChar(100)
+  destinationCountry String @map("destination_country") @db.VarChar(100)
+  departureTime DateTime @map("departure_time") @db.Timestamptz()
+  cabinClass String @map("cabin_class") @db.VarChar(20)
+  basePrice Int @map("base_price")
+  tax Int
+  totalPrice Int @map("total_price")
+  currency String @default("VND") @db.Char(3)
+  source String @db.VarChar(60)
+  recordedAt DateTime @default(now()) @map("recorded_at") @db.Timestamptz()
+  fare FlightFare? @relation(fields: [fareId], references: [id], onDelete: SetNull)
+  flight Flight? @relation(fields: [flightId], references: [id], onDelete: SetNull)
+  airline Airline? @relation(fields: [airlineId], references: [id], onDelete: SetNull)
+  @@index([fareId, recordedAt])
+  @@index([airlineId, recordedAt])
+  @@index([recordedAt])
+  @@index([originCode, destinationCode, recordedAt])
+  @@map("fare_observations")
+}
+
+model AdminAuditEvent {
+  id String @id @default(uuid()) @db.Uuid
+  actorId Int? @map("actor_id")
+  action String @db.VarChar(80)
+  entity String @db.VarChar(40)
+  entityId String? @map("entity_id") @db.VarChar(150)
+  metadata Json @default("{}")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  actor User? @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  @@index([createdAt])
+  @@index([actorId, createdAt])
+  @@map("admin_audit_events")
+}
+
+model ProviderSyncState {
+  kind String @id @db.VarChar(20)
+  runningUntil DateTime? @map("running_until") @db.Timestamptz()
+  lastAttemptAt DateTime? @map("last_attempt_at") @db.Timestamptz()
+  lastSuccessAt DateTime? @map("last_success_at") @db.Timestamptz()
+  lastError String? @map("last_error") @db.VarChar(200)
+  nextAllowedAt DateTime? @map("next_allowed_at") @db.Timestamptz
+  @@map("provider_sync_states")
+}
+
+model ProviderSyncRun {
+  id String @id @default(uuid()) @db.Uuid
+  kind String @db.VarChar(20)
+  provider String @db.VarChar(60)
+  status String @default("RUNNING") @db.VarChar(20)
+  actorId Int? @map("actor_id")
+  processed Int @default(0)
+  skipped Int @default(0)
+  errorCode String? @map("error_code") @db.VarChar(200)
+  startedAt DateTime @default(now()) @map("started_at") @db.Timestamptz()
+  finishedAt DateTime? @map("finished_at") @db.Timestamptz()
+  actor User? @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  @@index([kind, startedAt])
+  @@map("provider_sync_runs")
 }

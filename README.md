@@ -38,7 +38,13 @@ Trang gợi ý cá nhân hóa dùng tìm kiếm tiếng Việt không dấu và 
 
 Quản trị viên có dashboard, danh sách đơn và chi tiết vé, CRUD sân bay/hãng, tạo chuyến bay, ngừng/mở bán, sửa giá và sức chứa từng hạng, khóa tài khoản/đổi quyền và kiểm duyệt đánh giá. Chuyến hoặc hãng có đơn sắp tới đang hoạt động được bảo vệ khỏi đổi trạng thái gây mất khả năng thanh toán. Giá và điều kiện đã đặt được lưu thành snapshot trên đơn.
 
-## Cấu trúc
+## Aviation Command Center
+
+Dashboard quản trị mới tại **http://localhost:5174/admin** gồm theo dõi chuyến bay, lịch sử giá quan sát, đơn vé/CCCD đã che, khách hàng, hãng bay, báo cáo doanh thu và nhật ký. Có bộ lọc và phân trang server, sáng/tối, giao diện responsive và cập nhật định kỳ. Nguồn đối tác chưa cấu hình được ghi rõ; lịch/giá và thanh toán nội bộ vẫn là demo.
+
+Database hiện có chỉ cần `npm run db:migrate`; không reset/seed lại. Xem [hướng dẫn quản trị, số liệu, bảo mật và adapter nguồn](backend/docs/admin-command-center.md).
+
+## Cấu trúc thư mục
 
 ```text
 backend/

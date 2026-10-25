@@ -1,5 +1,7 @@
 import { createHash, randomBytes, randomUUID } from 'crypto';
 import { Prisma } from '@prisma/client';
+import { locallyReservedSeats,providerInventory } from '../admin/inventory';
+import { canSellOperationally } from '../utils/operational-status';
 import { z } from 'zod';
 import { prisma } from '../config/db';
 import { env } from '../config/env';
@@ -17,7 +19,9 @@ export async function serial<T>(run: (tx: Tx) => Promise<T>): Promise<T> {
 }
 async function restore(tx: Tx, booking: { segments: { fareId: number }[]; passengers: unknown[] }) {
   for (const segment of [...booking.segments].sort((a, b) => a.fareId - b.fareId)) {
-    await tx.flightFare.update({ where: { id: segment.fareId }, data: { availableSeats: { increment: booking.passengers.length } } });
+    const fare=await tx.flightFare.findUniqueOrThrow({where:{id:segment.fareId}});
+    if(fare.source!=='LOCAL_DEMO'&&fare.providerAvailableSeats!==null){const reserved=await locallyReservedSeats(tx,fare.id);await tx.flightFare.update({where:{id:fare.id},data:providerInventory(fare.providerAvailableSeats,reserved)});}
+    else await tx.flightFare.update({ where: { id: segment.fareId }, data: { availableSeats: { increment: booking.passengers.length } } });
   }
 }
 export async function releaseExpired() {
@@ -47,7 +51,7 @@ export const bookingService = {
         if (a.originId !== b.destinationId || a.destinationId !== b.originId || +b.departureTime < +a.arrivalTime + 3600000) throw new AppError('Chuyến về không hợp lệ hoặc quá sát chuyến đi');
       }
       for (const fare of [...fares].sort((a, b) => a.id - b.id)) {
-        if (fare.flight.status !== 'SCHEDULED' || !fare.flight.airline.isActive || +fare.flight.departureTime < Date.now() + 3600000) throw new AppError('Chuyến bay không còn mở bán', 409);
+        if (fare.flight.status !== 'SCHEDULED' || !canSellOperationally(fare.flight.operationalStatus) || !fare.flight.airline.isActive || +fare.flight.departureTime < Date.now() + 3600000) throw new AppError('Chuyến bay không còn mở bán', 409);
         const won = await tx.flightFare.updateMany({ where: { id: fare.id, availableSeats: { gte: input.passengers.length } }, data: { availableSeats: { decrement: input.passengers.length } } });
         if (won.count !== 1) throw new AppError('Không đủ ghế trống. Vui lòng chọn chuyến khác.', 409);
       }
@@ -76,7 +80,7 @@ export const bookingService = {
       if (!b) throw new AppError('Không tìm thấy đơn', 404);
       if (b.status === 'CONFIRMED') return b;
       if (b.status !== 'PENDING' || b.expiresAt <= new Date()) throw new AppError('Đơn đã hết hạn hoặc không thể thanh toán', 409);
-      if (b.segments.some(s => s.fare.flight.status !== 'SCHEDULED' || !s.fare.flight.airline.isActive || s.fare.flight.departureTime <= new Date())) throw new AppError('Chuyến bay đã thay đổi trạng thái. Vui lòng hủy đơn.', 409);
+      if (b.segments.some(s => s.fare.flight.status !== 'SCHEDULED' || !canSellOperationally(s.fare.flight.operationalStatus) || !s.fare.flight.airline.isActive || s.fare.flight.departureTime <= new Date())) throw new AppError('Chuyến bay đã thay đổi trạng thái. Vui lòng hủy đơn.', 409);
       const won = await tx.booking.updateMany({ where: { id, status: 'PENDING', expiresAt: { gt: new Date() } }, data: { status: 'CONFIRMED' } });
       if (won.count !== 1) throw new AppError('Trạng thái đơn đã thay đổi', 409);
       await tx.payment.create({ data: { bookingId: id, transactionId: `MOCK-${randomUUID()}`, amount: b.totalAmount } });
@@ -95,7 +99,7 @@ export const bookingService = {
       if (won.count !== 1) throw new AppError('Trạng thái đơn đã thay đổi', 409);
       await restore(tx, b);
       await tx.ticket.updateMany({ where: { segmentId: { in: b.segments.map(s => s.id) } }, data: { status: 'VOID' } });
-      if (b.payment) await tx.payment.update({ where: { bookingId: id }, data: { status: 'REFUNDED' } });
+      if (b.payment) await tx.payment.update({ where: { bookingId: id }, data: { status: 'REFUNDED', refundedAt: new Date() } });
       return tx.booking.findUniqueOrThrow({ where: { id }, include: bookingInclude });
     });
   },

@@ -22,7 +22,7 @@ async function main() {
     { code: 'BKK', name: 'Suvarnabhumi', city: 'Bangkok', country: 'Thái Lan', timezone: 'Asia/Bangkok', latitude: 13.6900, longitude: 100.7501 },
   ];
   for (const a of airportData) await db.airport.upsert({ where: { code: a.code }, create: a, update: {} });
-  for (const a of [{ code: 'VN', name: 'Vietnam Airlines', color: '#08747b' }, { code: 'VJ', name: 'Vietjet Air', color: '#d43743' }, { code: 'QH', name: 'Bamboo Airways', color: '#39846c' }]) await db.airline.upsert({ where: { code: a.code }, create: a, update: {} });
+  for (const a of [{ code: 'VN', name: 'Vietnam Airlines', color: '#08747b' }, { code: 'VJ', name: 'Vietjet Air', color: '#d43743' }, { code: 'QH', name: 'Bamboo Airways', color: '#39846c' }]) await db.airline.upsert({ where: { code: a.code }, create: {...a,country:'Việt Nam',logoUrl:'/brands/cards/'+a.code.toLowerCase()+'.svg',website:({VN:'https://www.vietnamairlines.com/',VJ:'https://www.vietjetair.com/',QH:'https://www.bambooairways.com/'} as Record<string,string>)[a.code]}, update: {} });
   const airports = await db.airport.findMany();
   const airlines = await db.airline.findMany({ orderBy: { code: 'asc' } });
   const routes = [['SGN', 'HAN'], ['SGN', 'DAD'], ['SGN', 'CXR'], ['SGN', 'PQC'], ['SGN', 'DLI'], ['HAN', 'DAD'], ['HAN', 'PQC'], ['HAN', 'HPH'], ['SGN', 'SIN'], ['SGN', 'BKK']].flatMap(([a,b]) => [[a,b], [b,a]]);
@@ -45,6 +45,7 @@ async function main() {
     tax: 385000, baggageKg: index === 0 ? 0 : index === 1 ? 20 : 32, cabinBaggageKg: index === 2 ? 12 : 7,
     refundable: index > 0, totalSeats: index === 0 ? 120 : 16, availableSeats: index === 0 ? 120 : 16,
   }))) });
+  await db.$executeRaw`INSERT INTO fare_observations (fare_id,flight_id,airline_id,airline_code,airline_name,flight_number,origin_code,destination_code,origin_country,destination_country,departure_time,cabin_class,base_price,tax,total_price,currency,source,recorded_at) SELECT ff.id,f.id,a.id,a.code,a.name,f.flight_number,o.code,d.code,o.country,d.country,f.departure_time,ff.cabin_class,ff.base_price,ff.tax,ff.base_price+ff.tax,'VND',ff.source,CURRENT_TIMESTAMP FROM flight_fares ff JOIN flights f ON f.id=ff.flight_id JOIN airlines a ON a.id=f.airline_id JOIN airports o ON o.id=f.origin_id JOIN airports d ON d.id=f.destination_id WHERE NOT EXISTS (SELECT 1 FROM fare_observations observed WHERE observed.fare_id=ff.id)`;
   console.log(`Seed complete: ${airports.length} airports, ${airlines.length} airlines, ${all.length} upcoming demo flights. Existing bookings, fares and passwords preserved.`);
 }
 main().catch(e => { console.error(e.message); process.exitCode = 1; }).finally(() => db.$disconnect());

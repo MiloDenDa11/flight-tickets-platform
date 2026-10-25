@@ -15,8 +15,17 @@ const schema = z.object({
   SMTP_USER: z.string().default(''),
   SMTP_PASSWORD: z.string().default(''),
   MAIL_FROM: z.string().default('Flight Tickets <noreply@example.com>'),
+  FLIGHT_PROVIDER_NAME: z.string().regex(/^[A-Z0-9_-]{2,60}$/).refine(v=>v!=='LOCAL_DEMO').default('PARTNER_FEED'),
+  FLIGHT_SCHEDULE_URL: z.string().default(''),
+  FLIGHT_STATUS_URL: z.string().default(''),
+  FLIGHT_FARES_URL: z.string().default(''),
+  FLIGHT_PROVIDER_API_KEY: z.string().default(''),
+  FLIGHT_PROVIDER_TIMEOUT_MS: z.coerce.number().int().min(1000).max(20000).default(10000),
+  FLIGHT_SYNC_ENABLED: z.enum(['true','false']).default('false'),
+  FLIGHT_SYNC_INTERVAL_SECONDS: z.coerce.number().int().min(60).max(86400).default(300),
 });
 export const env = schema.parse(process.env);
+for(const address of [env.FLIGHT_SCHEDULE_URL,env.FLIGHT_STATUS_URL,env.FLIGHT_FARES_URL])if(address){const url=new URL(address);if(url.username||url.password||(url.protocol!=='https:'&&!(env.NODE_ENV==='test'&&['localhost','127.0.0.1'].includes(url.hostname)&&url.protocol==='http:')))throw new Error('Provider endpoints require HTTPS without URL credentials');}
 if (env.NODE_ENV === 'production' && env.ENABLE_MOCK_PAYMENTS === 'true') {
   throw new Error('Disable ENABLE_MOCK_PAYMENTS before production deployment');
 }

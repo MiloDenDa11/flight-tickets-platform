@@ -9,7 +9,9 @@ import auth from './auth.routes';
 import bookings from './booking.routes';
 import users from './user.routes';
 import admin from './admin.routes';
+import { serveLogo } from '../admin/media';
 const router = Router();
+router.get('/media/airline-logos/:filename',serveLogo);
 router.get('/health', async (_req, res) => {
   let database = false, cache = false;
   try { await prisma.$queryRaw`SELECT 1`; database = true; } catch { /* report health */ }
