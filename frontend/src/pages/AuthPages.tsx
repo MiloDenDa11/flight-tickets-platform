@@ -5,9 +5,10 @@ import { useAuth } from '../contexts/AuthContext';
 import { errorMessage, post } from '../services/api';
 import { User } from '../types';
 import { Alert, Plane } from '../components/common';
+import { safeNextPath } from '../utils/navigation';
 export function AuthPage({ register = false }: { register?: boolean }) {
   const { user, accept } = useAuth(); const navigate = useNavigate(); const [params] = useSearchParams();
-  const next = params.get('next'); const destination = next?.startsWith('/') && !next.startsWith('//') ? next : '/bookings';
+  const destination = safeNextPath(params.get('next'));
   const [name, setName] = useState(''), [email, setEmail] = useState(''), [password, setPassword] = useState(''), [error, setError] = useState(''), [busy, setBusy] = useState(false);
   if (user) return <Navigate to={destination} replace />;
   async function submit(e: FormEvent) {

@@ -9,4 +9,5 @@ import './styles/home.css';
 import './styles/editorial.css';
 import './styles/booking.css';
 import './styles/admin.css';
+import './styles/redesign.css';
 ReactDOM.createRoot(document.getElementById('root')!).render(<App />);

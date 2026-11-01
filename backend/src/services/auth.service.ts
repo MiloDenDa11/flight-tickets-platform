@@ -73,6 +73,7 @@ export const authService = {
     await prisma.$transaction([
       prisma.user.update({ where: { id: userId }, data: { passwordHash, tokenVersion: { increment: 1 } } }),
       prisma.refreshToken.deleteMany({ where: { userId } }),
+      prisma.passwordResetToken.deleteMany({ where: { userId } }),
     ]);
   },
 };

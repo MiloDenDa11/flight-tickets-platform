@@ -63,12 +63,12 @@ export default function Dashboard({
       <section className="ad-hero">
         <div className="ad-hero-text">
           <span className="ad-eyebrow">
-            <i /> FLIGHT OPERATIONS · ADMIN WORKSPACE
+            <i /> TRUNG TÂM ĐIỀU HÀNH HÀNG KHÔNG
           </span>
           <h1>
-            Aviation
+            Toàn cảnh.
             <br />
-            <em>Command Center.</em>
+            <em>Trong tầm tay.</em>
           </h1>
           <p>
             Mọi hành trình, trong tầm kiểm soát.

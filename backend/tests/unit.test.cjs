@@ -45,3 +45,15 @@ test('bcrypt password validation rejects multibyte truncation', () => {
   assert.equal(password.safeParse('a'.repeat(72)).success,true);
   assert.equal(password.safeParse('ế'.repeat(30)).success,false);
 });
+
+test('numeric inputs reject null, booleans, arrays and empty strings without losing numeric form support', () => {
+  const { id, fareSchema, airportSchema } = require('../dist/src/validators');
+  for (const invalid of [null, true, false, [], [1], '', '   ']) {
+    assert.equal(id.safeParse(invalid).success, false);
+    assert.equal(fareSchema.safeParse({ cabinClass: 'ECONOMY', basePrice: invalid, tax: 0, baggageKg: 0, totalSeats: 10 }).success, false);
+  }
+  assert.equal(id.safeParse('42').success, true);
+  assert.equal(id.safeParse(2147483648).success, false);
+  assert.equal(fareSchema.safeParse({ cabinClass: 'ECONOMY', basePrice: 0, tax: '0', baggageKg: '0', totalSeats: '10' }).success, true);
+  assert.equal(airportSchema.safeParse({ code: 'QAA', name: 'QA Airport', city: 'QA City', latitude: null, longitude: 106 }).success, false);
+});

@@ -32,7 +32,12 @@ function ViewControl({ view, airports }: { view: { mode: string; revision: numbe
   }, [map, view.mode]);
   return null;
 }
-export default function WorldMap({ airports, onUseRoute }: { airports: Airport[]; onUseRoute: (origin: string, destination: string) => void }) {
+export interface WorldMapProps {
+  airports: Airport[];
+  onUseRoute: (origin: string, destination: string) => void;
+}
+
+export default function WorldMap({ airports, onUseRoute }: WorldMapProps) {
   const [geometry, setGeometry] = useState<GeoJsonObject | null>(null), [error, setError] = useState(''), [retry, setRetry] = useState(0);
   const [originCode, setOrigin] = useState('SGN'), [destinationCode, setDestination] = useState('SIN');
   const [view, setView] = useState(() => ({ mode: window.matchMedia('(max-width: 767px)').matches ? 'airports' : 'world', revision: 0 }));
@@ -40,9 +45,18 @@ export default function WorldMap({ airports, onUseRoute }: { airports: Airport[]
   const origin = valid.find(a => a.code === originCode) ?? valid[0];
   const destination = valid.find(a => a.code === destinationCode && a.id !== origin?.id) ?? valid.find(a => a.id !== origin?.id);
   useEffect(() => {
-    const controller = new AbortController(); setError('');
-    fetch('/geo/world-land.geojson', { signal: controller.signal }).then(r => { if (!r.ok) throw new Error(); return r.json(); }).then(setGeometry).catch(e => { if (e.name !== 'AbortError') setError('Chưa tải được bản đồ. Bạn vẫn có thể chọn sân bay bên cạnh.'); });
-    return () => controller.abort();
+    let active = true;
+    const controller = new AbortController(); setError(''); setGeometry(null);
+    const timer = window.setTimeout(() => {
+      controller.abort();
+      if (active) setError('Bản đồ tải quá lâu. Bạn vẫn có thể chọn sân bay bên cạnh hoặc thử tải lại.');
+    }, 15000);
+    fetch('/geo/world-land.geojson', { signal: controller.signal })
+      .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+      .then(data => { if (active && !controller.signal.aborted) setGeometry(data); })
+      .catch(() => { if (active && !controller.signal.aborted) setError('Chưa tải được bản đồ. Bạn vẫn có thể chọn sân bay bên cạnh.'); })
+      .finally(() => window.clearTimeout(timer));
+    return () => { active = false; window.clearTimeout(timer); controller.abort(); };
   }, [retry]);
   return <div className="world-map-shell">
     <div className="map-canvas" role="region" aria-label="Bản đồ thế giới tương tác, đường nối minh họa giữa các sân bay">

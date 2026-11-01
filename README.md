@@ -20,6 +20,8 @@ npm run dev
 
 Nếu bản bàn giao đã có `node_modules`, `.env` và dữ liệu được migrate/seed, có thể bỏ qua cài đặt và chỉ chạy `docker compose up -d --wait`, sau đó `npm run dev`.
 
+Chạy `npm run dev` tại thư mục gốc. Lệnh tự dùng lại frontend/backend của dự án nếu đang chạy và chỉ khởi động phần còn thiếu. Nếu cổng bị ứng dụng khác chiếm, lệnh báo lỗi trước khi khởi động thêm tiến trình. `Ctrl+C` chỉ dừng các tiến trình do lần chạy đó tạo ra; dịch vụ được dùng lại vẫn chạy trong terminal ban đầu.
+
 - Frontend: **http://localhost:5174**
 - Backend: **http://localhost:3001/api/v1**
 - Health: **http://localhost:3001/api/v1/health**

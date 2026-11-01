@@ -23,6 +23,7 @@ import { useAdminData } from "./useAdminData";
 import AdminIcon from "./Icons";
 import { Filters } from "./ui";
 import "../styles/admin-workspace.css";
+import "../styles/admin-redesign.css";
 const sections = [
   "dashboard",
   "flights",

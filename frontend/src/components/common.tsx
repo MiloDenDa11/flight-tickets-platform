@@ -6,7 +6,7 @@ import Icon from './Icon';
 
 export function Plane({ className = '' }: { className?: string }) { return <svg className={className} viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="m28 4-9 13-2 11-4-2 1-9-9 2-2-4 11-4L24 3c2-2 6-1 4 1Z" fill="currentColor" /></svg>; }
 export function Spinner() { return <div className="loading" role="status"><span className="spinner" aria-hidden="true" /> Đang tải dữ liệu…</div>; }
-export function Alert({ children, good = false }: { children: ReactNode; good?: boolean }) { return <div className={`alert ${good ? 'good' : ''}`} role={good ? 'status' : 'alert'}><Icon name={good ? 'check' : 'info'} /><div>{children}</div></div>; }
+export function Alert({ children, good = false, id }: { children: ReactNode; good?: boolean; id?: string }) { return <div id={id} className={`alert ${good ? 'good' : ''}`} role={good ? 'status' : 'alert'}><Icon name={good ? 'check' : 'info'} /><div>{children}</div></div>; }
 export function Empty({ children }: { children: ReactNode }) { return <div className="empty"><Plane /><h3>Chưa có dữ liệu phù hợp</h3><p>{children}</p></div>; }
 export function PageHead({ tag, title, children }: { tag: string; title: string; children?: ReactNode }) { return <div className="page-head"><div className="page-breadcrumb"><Link to="/">Trang chủ</Link><span>/</span><span>{tag}</span></div><span className="eyebrow">{tag}</span><h1>{title}</h1>{children && <p>{children}</p>}</div>; }
 export function useResource<T>(url: string, revision = 0) {
@@ -53,9 +53,9 @@ export function Layout() {
       }
     };
     document.addEventListener('keydown', key);
-    return () => { document.body.style.overflow = oldOverflow; document.removeEventListener('keydown', key); };
+    return () => { document.body.style.overflow = oldOverflow; document.removeEventListener('keydown', key); toggle.current?.focus(); };
   }, [menu]);
-  const navigation = <><NavLink to="/" end>Tìm chuyến bay</NavLink><Link to="/#destinations">Khám phá điểm đến</Link><Link to="/#airlines">Hãng hàng không</Link><NavLink to="/bookings">Đặt chỗ của tôi</NavLink></>;
+  const navigation = <><NavLink to="/" end>Trang chủ</NavLink><NavLink to="/flights">Tìm chuyến bay</NavLink><Link to="/#destinations">Điểm đến</Link><Link to="/#cultures">Khám phá</Link><NavLink to="/bookings">Đặt chỗ của tôi</NavLink></>;
   async function signOut() { setError(''); try { await logout(); navigate('/'); } catch (e) { setError(errorMessage(e)); } }
   return <>
     <a href="#main-content" className="skip-link">Bỏ qua đến nội dung chính</a>

@@ -7,7 +7,7 @@ export function useDialogFocus(open: boolean, close: () => void, disabled = fals
     const previous = document.activeElement as HTMLElement | null;
     const overflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    const dialog = document.querySelector<HTMLElement>('.modal[role="dialog"]');
+    const dialog = document.querySelector<HTMLElement>('.modal[role="dialog"], .ad-dialog[role="dialog"], .booking-cancel-dialog[role="dialog"]');
     dialog?.querySelector<HTMLElement>('button, input, select, textarea, a')?.focus();
     function key(event: KeyboardEvent) {
       if (event.key === 'Escape' && !latest.current.disabled) latest.current.close();

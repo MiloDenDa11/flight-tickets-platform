@@ -86,6 +86,7 @@ export default function Shell({
   const { user, logout } = useAuth(),
     navigate = useNavigate();
   const [mobile, setMobile] = useState(false),
+    [collapsed, setCollapsed] = useState(() => { try { return localStorage.getItem('flight-admin-sidebar') === 'collapsed'; } catch { return false; } }),
     [drop, setDrop] = useState<string | null>(null),
     [term, setTerm] = useState(""),
     [searched, setSearched] = useState(""),
@@ -95,6 +96,7 @@ export default function Shell({
     [loggingOut, setLoggingOut] = useState(false);
   const topRef = useRef<HTMLElement>(null),
     menuRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => { try { localStorage.setItem('flight-admin-sidebar', collapsed ? 'collapsed' : 'expanded'); } catch {} }, [collapsed]);
   useEffect(() => {
     function click(e: PointerEvent) {
       if (!topRef.current?.contains(e.target as Node)) setDrop(null);
@@ -128,7 +130,7 @@ export default function Shell({
     const saved = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const links = Array.from(
-      document.querySelectorAll<HTMLAnchorElement>(".ad-sidebar a"),
+      document.querySelectorAll<HTMLElement>(".ad-sidebar a, .ad-sidebar button"),
     );
     links[0]?.focus();
     function trap(e: KeyboardEvent) {
@@ -163,7 +165,7 @@ export default function Shell({
           ? "Đã cấu hình nguồn"
           : "Dữ liệu nội bộ · Demo";
   return (
-    <div className="admin-app" data-theme={theme}>
+    <div className={"admin-app" + (collapsed ? " sidebar-collapsed" : "")} data-theme={theme}>
       <a className="ad-skip" href="#admin-main">
         Đến nội dung quản trị
       </a>
@@ -175,12 +177,14 @@ export default function Shell({
         />
       )}
       <aside
+        id="admin-navigation"
         className={"ad-sidebar " + (mobile ? "open" : "")}
         role={mobile ? "dialog" : undefined}
         aria-modal={mobile || undefined}
         aria-label="Điều hướng quản trị"
       >
-        <Link className="ad-brand" to="/admin">
+        <button className="ad-sidebar-close ad-icon-btn" aria-label="Đóng điều hướng quản trị" onClick={() => setMobile(false)}><AdminIcon name="close" /></button>
+        <Link className="ad-brand" to="/admin" aria-label="Flight Tickets — Tổng quan quản trị">
           <span>
             <AdminIcon name="flights" />
           </span>
@@ -194,16 +198,19 @@ export default function Shell({
             <AdminIcon name="globe" />
           </span>
           <div>
-            <b>Aviation workspace</b>
+            <b>Điều hành hàng không</b>
             <small>Không gian điều hành</small>
           </div>
           <span className="ad-status-dot" />
         </div>
-        <div className="ad-nav-label">WORKSPACE</div>
+        <div className="ad-nav-label">KHÔNG GIAN ĐIỀU HÀNH</div>
         <nav>
           {nav.map((item) => (
             <Link
               key={item.key}
+              aria-label={item.title}
+              aria-current={section === item.key ? 'page' : undefined}
+              title={collapsed ? item.title : undefined}
               className={section === item.key ? "active" : ""}
               to={item.key === "dashboard" ? "/admin" : "/admin/" + item.key}
               onClick={() => setMobile(false)}
@@ -217,7 +224,7 @@ export default function Shell({
             </Link>
           ))}
         </nav>
-        <div className="ad-nav-label">ADMINISTRATION</div>
+        <div className="ad-nav-label">QUẢN TRỊ HỆ THỐNG</div>
         <nav>
           {[
             ["airports", "Sân bay", "airports"],
@@ -227,6 +234,9 @@ export default function Shell({
           ].map(([key, title, icon]) => (
             <Link
               key={key}
+              aria-label={title}
+              aria-current={section === key ? 'page' : undefined}
+              title={collapsed ? title : undefined}
               className={section === key ? "active compact" : "compact"}
               to={"/admin/" + key}
               onClick={() => setMobile(false)}
@@ -246,9 +256,9 @@ export default function Shell({
               Xem nhật ký <AdminIcon name="arrow" />
             </Link>
           </div>
-          <Link className="ad-back-site" to="/">
+          <Link className="ad-back-site" to="/" aria-label="Về trang đặt vé" title={collapsed ? 'Về trang đặt vé' : undefined}>
             <AdminIcon name="globe" />
-            Về trang đặt vé
+            <span>Về trang đặt vé</span>
             <AdminIcon name="arrow" />
           </Link>
           <small>FLIGHT TICKETS · OPERATIONS V1.0</small>
@@ -257,17 +267,19 @@ export default function Shell({
       <div className="ad-workspace">
         <header className="ad-topbar" ref={topRef}>
           <div className="ad-topbar-start">
+            <button className="ad-icon-btn ad-collapse-toggle" aria-label={collapsed ? 'Mở rộng thanh điều hướng' : 'Thu gọn thanh điều hướng'} aria-expanded={!collapsed} aria-controls="admin-navigation" onClick={() => setCollapsed(value => !value)}><AdminIcon name="menu" /></button>
             <button
               ref={menuRef}
               className="ad-icon-btn ad-menu-toggle"
               aria-label="Mở điều hướng"
               aria-expanded={mobile}
+              aria-controls="admin-navigation"
               onClick={() => setMobile((v) => !v)}
             >
               <AdminIcon name="menu" />
             </button>
             <div className="ad-breadcrumb">
-              Workspace
+              Quản trị
               <AdminIcon name="chevron" />
               <b>
                 {nav.find((i) => i.key === section)?.title ??

@@ -18,7 +18,7 @@ router.delete('/favorites/:id', async (req, res) => { await prisma.favoriteRoute
 router.get('/search-history', async (req, res) => { res.json({ success: true, data: await prisma.searchHistory.findMany({ where: { userId: req.auth!.id }, orderBy: { createdAt: 'desc' }, take: 20 }) }); });
 router.post('/reviews', async (req, res) => {
   const data = z.object({ airlineId: id, rating: z.number().int().min(1).max(5), comment: z.string().trim().min(3).max(2000) }).parse(req.body);
-  const eligible = await prisma.booking.count({ where: { userId: req.auth!.id, status: 'CONFIRMED', segments: { some: { fare: { flight: { airlineId: data.airlineId, arrivalTime: { lt: new Date() } } } } } } });
+  const eligible = await prisma.booking.count({ where: { userId: req.auth!.id, status: 'CONFIRMED', segments: { some: { fare: { flight: { airlineId: data.airlineId, arrivalTime: { lt: new Date() }, status: { not: 'CANCELLED' }, OR: [{ operationalStatus: null }, { operationalStatus: { not: 'CANCELLED' } }] } } } } } });
   if (!eligible) throw new AppError('Chỉ hành khách đã hoàn tất chuyến bay mới có thể đánh giá', 403);
   res.json({ success: true, data: await prisma.review.upsert({ where: { userId_airlineId: { userId: req.auth!.id, airlineId: data.airlineId } }, create: { userId: req.auth!.id, ...data }, update: { ...data, isVisible: true } }) });
 });
