@@ -495,7 +495,7 @@ export function Count({
     let frame = 0,
       start = performance.now();
     const run = (now: number) => {
-      const p = Math.min((now - start) / 650, 1);
+      const p = Math.min((now - start) / 200, 1);
       setShown(Math.round(target.current * (1 - Math.pow(1 - p, 3))));
       if (p < 1) frame = requestAnimationFrame(run);
     };

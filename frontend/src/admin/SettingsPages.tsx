@@ -41,11 +41,10 @@ export function SettingsPage({
   return (
     <>
       <PageTitle
-        eyebrow="WORKSPACE SETTINGS"
-        title="Không gian của bạn. Quyền kiểm soát của bạn."
+        eyebrow="CẤU HÌNH VẬN HÀNH"
+        title="Cài đặt hệ thống"
       >
-        Kiểm tra kết nối, nguồn dữ liệu và thiết lập hiển thị của trung tâm điều
-        hành.
+        Quản lý kết nối, nguồn dữ liệu và cấu hình vận hành.
       </PageTitle>
       <DataState {...state}>
         {d && (
@@ -63,7 +62,10 @@ export function SettingsPage({
                   "shield",
                 ],
               ].map(([name, sub, ok, icon]) => (
-                <Panel key={String(name)}>
+                <Panel
+                  key={String(name)}
+                  className={`ad-service-card ad-service-${name === "PostgreSQL" ? "database" : name === "Redis" ? "cache" : "payment"}`}
+                >
                   <div className="ad-connection-head">
                     <span>
                       <AdminIcon
@@ -94,6 +96,7 @@ export function SettingsPage({
               ))}
             </div>
             <Panel
+              className="ad-provider-panel"
               title="Nguồn dữ liệu hàng không"
               subtitle="Cấu hình endpoint và khóa API tại máy chủ; không gửi khóa về trình duyệt"
               action={
@@ -108,6 +111,7 @@ export function SettingsPage({
                 <div>
                   <AdminIcon name="globe" />
                   <span>
+                    <small className="ad-provider-label">NHÀ CUNG CẤP</small>
                     <b>{d.provider}</b>
                     <small>
                       {d.apiKeyConfigured
@@ -130,7 +134,7 @@ export function SettingsPage({
                       new Date(source.nextAllowedAt) > new Date(),
                   );
                   return (
-                    <article key={kind}>
+                    <article key={kind} className={`ad-source-card--${kind}`}>
                       <div className="ad-source-icon">
                         <AdminIcon
                           name={
@@ -189,6 +193,11 @@ export function SettingsPage({
                       </dl>
                       <button
                         className="ad-btn secondary"
+                        aria-describedby={
+                          !source?.configured || running || cooling || Boolean(working)
+                            ? `sync-${kind}-reason`
+                            : undefined
+                        }
                         disabled={
                           !source?.configured ||
                           running ||
@@ -211,8 +220,17 @@ export function SettingsPage({
                           : "Đồng bộ ngay"}
                       </button>
                       {!source?.configured && (
-                        <small>
+                        <small id={`sync-${kind}-reason`}>
                           Thiết lập nguồn ở cấu hình môi trường backend.
+                        </small>
+                      )}
+                      {source?.configured && (running || cooling || Boolean(working)) && (
+                        <small id={`sync-${kind}-reason`}>
+                          {running
+                            ? "Đang đồng bộ. Vui lòng đợi kết quả trước khi thử lại."
+                            : cooling
+                              ? "Có thể đồng bộ lại sau thời điểm cho phép ở trên."
+                              : "Một nhóm dữ liệu đang được xử lý. Vui lòng đợi hoàn tất."}
                         </small>
                       )}
                     </article>
@@ -374,8 +392,8 @@ export function ActivityPage({
   return (
     <>
       <PageTitle
-        eyebrow="AUDIT & ACCOUNTABILITY"
-        title="Mọi thao tác đều có dấu vết."
+        eyebrow="THEO DÕI HOẠT ĐỘNG"
+        title="Nhật ký thao tác"
       >
         Theo dõi thay đổi dữ liệu, xuất báo cáo và truy cập thông tin liên hệ.
         Không lưu CCCD đầy đủ trong nhật ký.
@@ -563,12 +581,12 @@ export function LegacyDirectory({
     <>
       <PageTitle
         eyebrow={
-          resource === "airports" ? "AIRPORT DIRECTORY" : "REVIEW MODERATION"
+          resource === "airports" ? "DANH MỤC SÂN BAY" : "NỘI DUNG KHÁCH HÀNG"
         }
         title={
           resource === "airports"
-            ? "Những điểm chạm của hành trình."
-            : "Lắng nghe sau mỗi chuyến bay."
+            ? "Quản lý sân bay"
+            : "Kiểm duyệt đánh giá"
         }
         action={
           resource === "airports" ? (

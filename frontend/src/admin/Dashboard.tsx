@@ -65,14 +65,8 @@ export default function Dashboard({
           <span className="ad-eyebrow">
             <i /> TRUNG TÂM ĐIỀU HÀNH HÀNG KHÔNG
           </span>
-          <h1>
-            Toàn cảnh.
-            <br />
-            <em>Trong tầm tay.</em>
-          </h1>
+          <h1>Tổng quan quản trị</h1>
           <p>
-            Mọi hành trình, trong tầm kiểm soát.
-            <br />
             Theo dõi lịch bay, giá vé và hoạt động kinh doanh.
           </p>
           <div className="ad-hero-meta">
@@ -111,7 +105,7 @@ export default function Dashboard({
             <>
               <div className="ad-section-label">
                 <div>
-                  <span className="ad-eyebrow">THE BIG PICTURE</span>
+                  <span className="ad-eyebrow">DỮ LIỆU TRONG KỲ</span>
                   <h2>Toàn cảnh vận hành</h2>
                 </div>
                 <span className="ad-muted">
@@ -211,8 +205,8 @@ export default function Dashboard({
                     }
                     points={d.report.series}
                     metrics={[
-                      { key: "gross", label: "Thực thu", color: "#4263eb" },
-                      { key: "refunds", label: "Hoàn tiền", color: "#f59e78" },
+                      { key: "gross", label: "Thực thu", color: "var(--ad-chart-blue)" },
+                      { key: "refunds", label: "Hoàn tiền", color: "var(--ad-chart-amber)" },
                     ]}
                     currency={d.report.currency}
                   />
@@ -439,7 +433,7 @@ export default function Dashboard({
                       {
                         key: "tickets",
                         label: "Chặng vé đã bán",
-                        color: "#0ca89a",
+                        color: "var(--ad-chart-teal)",
                       },
                     ]}
                     numeric
@@ -574,8 +568,8 @@ function PriceOverview({
               points={d.series}
               hasObservations={d.totalObservations > 0}
               metrics={[
-                { key: "average", label: "Giá bình quân", color: "#4263eb" },
-                { key: "min", label: "Thấp nhất", color: "#0ca899" },
+                { key: "average", label: "Giá bình quân", color: "var(--ad-chart-blue)" },
+                { key: "min", label: "Thấp nhất", color: "var(--ad-chart-teal)" },
               ]}
               emptyMessage="Chưa có quan sát giá trong kỳ đang chọn. Lịch sử bắt đầu khi giá được ghi nhận."
             />

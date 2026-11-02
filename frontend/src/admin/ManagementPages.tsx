@@ -257,8 +257,8 @@ export function FlightsPage({
   return (
     <>
       <PageTitle
-        eyebrow="FLIGHT MONITORING"
-        title="Điều phối bầu trời."
+        eyebrow="ĐIỀU HÀNH LỊCH BAY"
+        title="Quản lý chuyến bay"
         action={
           <button className="ad-btn" onClick={() => edit({ type: "flight" })}>
             <AdminIcon name="plus" />
@@ -430,8 +430,8 @@ export function BookingsPage({ query, revision, update, edit }: PageProps) {
   return (
     <>
       <PageTitle
-        eyebrow="BOOKING OPERATIONS"
-        title="Từng vé. Từng hành trình."
+        eyebrow="ĐẶT CHỖ & THANH TOÁN"
+        title="Quản lý đơn đặt vé"
         action={
           <button
             className="ad-btn secondary"
@@ -724,8 +724,8 @@ export function AirlinesPage({
   return (
     <>
       <PageTitle
-        eyebrow="AIRLINE MANAGEMENT"
-        title="Những thương hiệu cất cánh."
+        eyebrow="DANH MỤC HÃNG BAY"
+        title="Quản lý hãng hàng không"
         action={
           <button className="ad-btn" onClick={() => edit({ type: "airline" })}>
             <AdminIcon name="plus" />
@@ -887,8 +887,8 @@ export function CustomersPage({
   return (
     <>
       <PageTitle
-        eyebrow="CUSTOMER WORKSPACE"
-        title="Mỗi khách hàng, một kết nối."
+        eyebrow="TÀI KHOẢN & QUYỀN TRUY CẬP"
+        title="Quản lý khách hàng"
       >
         Danh mục tài khoản toàn hệ thống. Thông tin liên hệ đã được che; quyền
         quản trị được kiểm tra ở máy chủ.

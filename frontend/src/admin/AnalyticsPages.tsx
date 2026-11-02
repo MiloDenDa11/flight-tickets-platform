@@ -154,7 +154,7 @@ export function FaresPage({ query, revision, update, edit }: PageProps) {
   ];
   return (
     <>
-      <PageTitle eyebrow="FARE INTELLIGENCE" title="Hiểu giá. Nắm chuyển động.">
+      <PageTitle eyebrow="GIÁ VÉ & QUAN SÁT" title="Phân tích giá vé">
         Lịch sử giá có nguồn và thời điểm quan sát. Không dựng dữ liệu cho
         khoảng thời gian chưa ghi nhận.
       </PageTitle>
@@ -270,8 +270,8 @@ export function FaresPage({ query, revision, update, edit }: PageProps) {
                 hasObservations={d.totalObservations > 0}
                 points={d.series}
                 metrics={[
-                  { key: "average", label: "Giá bình quân", color: "#4263eb" },
-                  { key: "min", label: "Thấp nhất", color: "#0ca899" },
+                  { key: "average", label: "Giá bình quân", color: "var(--ad-chart-blue)" },
+                  { key: "min", label: "Thấp nhất", color: "var(--ad-chart-teal)" },
                 ]}
                 emptyMessage="Chưa có quan sát giá trong khoảng thời gian đang chọn."
               />
@@ -346,8 +346,8 @@ export function RevenuePage({
   return (
     <>
       <PageTitle
-        eyebrow="REVENUE & REPORTS"
-        title="Con số rõ ràng. Quyết định vững vàng."
+        eyebrow="THANH TOÁN & ĐỐI SOÁT"
+        title="Doanh thu & báo cáo"
         action={
           <button
             className="ad-btn"
@@ -466,8 +466,8 @@ export function RevenuePage({
                   hasObservations={d.orders > 0 || d.refunds > 0}
                   points={d.series}
                   metrics={[
-                    { key: "gross", label: "Thực thu", color: "#4263eb" },
-                    { key: "refunds", label: "Hoàn tiền", color: "#f09b78" },
+                    { key: "gross", label: "Thực thu", color: "var(--ad-chart-blue)" },
+                    { key: "refunds", label: "Hoàn tiền", color: "var(--ad-chart-amber)" },
                   ]}
                   currency={d.currency}
                 />

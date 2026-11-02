@@ -45,11 +45,11 @@ export function LineChart({
     (hasObservations ??
       points.some((p) => metrics.some((m) => Number(p[m.key]) > 0)));
   const W = width,
-    H = width < 400 ? 205 : 232,
-    L = 58,
+    H = width < 400 ? 250 : 280,
+    L = 76,
     R = 16,
     T = 18,
-    B = 30;
+    B = 38;
   const x = (i: number) =>
       L + (points.length === 1 ? 0.5 : i / (points.length - 1)) * (W - L - R),
     y = (v: number) => H - B - (v / max) * (H - T - B);
